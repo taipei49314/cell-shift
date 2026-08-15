@@ -13,6 +13,7 @@ descendants.
 
 This is not a biological model. See [CLAIMS.md](CLAIMS.md).
 Personal research questions and locked protocols: [RESEARCH.md](RESEARCH.md).
+v1.0 landing contract: [LANDING.md](LANDING.md).
 
 ## Run
 
