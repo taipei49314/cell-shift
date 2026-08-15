@@ -43,3 +43,9 @@ v1.0 still needs L3. **Depth is enough** when all of these are true:
 - Multi-seed table exists for Hypoxic spheroid (core < rim)
 
 Then wait for a human before L3.
+
+## Watch
+
+A durable 3h unattended task is allowed to continue items 5–6 above.
+It must re-read this file each session. If `npm test` is red at start, fix or halt.
+Do not open L3.
