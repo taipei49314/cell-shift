@@ -30,6 +30,7 @@ Headless (no UI, writes a receipt):
 ```bash
 npm run chamber -- run hypoxic 240
 npm run chamber -- campaign adhesion
+npm run chamber -- campaign hypoxic-seeds
 npm run chamber -- ledger
 ```
 

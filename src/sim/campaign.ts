@@ -1,7 +1,10 @@
-import { experimentHash, type ExperimentSpec } from "./experiment";
+import { experimentHash, PRESETS, type ExperimentSpec } from "./experiment";
 import { measure } from "./morphology";
 import type { Morphology } from "./types";
 import { replayTo } from "./world";
+
+/** Locked multi-seed set. Do not drop a failing seed to make a test green. */
+export const HYPOXIC_MULTI_SEEDS = [4821, 7, 21, 99, 2026] as const;
 
 export type CampaignRow = {
   label: string;
@@ -54,6 +57,22 @@ export function adhesionSweep(seed = 4821, hours = 120): Campaign {
         env,
         rules: { cycleHours: 14, deathRate: 0.03, adhesion, motility: 0.08 },
       },
+    })),
+  );
+}
+
+export function hypoxicMultiseed(
+  hours = 240,
+  seeds: readonly number[] = HYPOXIC_MULTI_SEEDS,
+): Campaign {
+  const proto = PRESETS.hypoxic;
+  return runCampaign(
+    "hypoxic-multiseed",
+    "seed",
+    hours,
+    seeds.map((seed) => ({
+      label: `seed=${seed}`,
+      spec: { ...proto, seed },
     })),
   );
 }

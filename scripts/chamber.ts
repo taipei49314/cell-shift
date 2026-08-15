@@ -3,11 +3,12 @@
  *
  *   npx vite-node scripts/chamber.ts run hypoxic 240
  *   npx vite-node scripts/chamber.ts campaign adhesion
+ *   npx vite-node scripts/chamber.ts campaign hypoxic-seeds
  *   npx vite-node scripts/chamber.ts ledger
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { adhesionSweep } from "../src/sim/campaign";
+import { adhesionSweep, hypoxicMultiseed } from "../src/sim/campaign";
 import { PRESETS } from "../src/sim/experiment";
 import { HYPOTHESES, runHypothesis } from "../src/sim/hypotheses";
 import { issueReceipt } from "../src/sim/receipt";
@@ -35,9 +36,29 @@ if (cmd === "run") {
   console.log(path);
   console.log(JSON.stringify({ hash: receipt.hash, hours: receipt.hours, morphology: receipt.morphology }, null, 2));
 } else if (cmd === "campaign") {
-  const camp = adhesionSweep(4821, 120);
-  const path = write("artifacts/campaigns/adhesion-sweep.json", camp);
-  console.log(path);
+  if (a === "hypoxic-seeds" || a === "hypoxic-multiseed") {
+    const camp = hypoxicMultiseed(240);
+    const path = write("artifacts/campaigns/hypoxic-multiseed.json", camp);
+    console.log(path);
+    for (const row of camp.rows) {
+      const m = row.morphology;
+      const hold = m.coreO2 < m.rimO2;
+      console.log(
+        row.label,
+        "coreO2",
+        m.coreO2,
+        "rimO2",
+        m.rimO2,
+        "necrotic",
+        m.necroticFrac,
+        hold ? "HOLD" : "FAIL",
+      );
+    }
+  } else {
+    const camp = adhesionSweep(4821, 120);
+    const path = write("artifacts/campaigns/adhesion-sweep.json", camp);
+    console.log(path);
+  }
 } else if (cmd === "ledger") {
   const runs = HYPOTHESES.map(runHypothesis);
   const path = write("artifacts/ledger/hypotheses.json", runs);
@@ -46,6 +67,6 @@ if (cmd === "run") {
   if (runs.some((r) => r.verdict !== "PASS")) process.exit(2);
 } else {
   console.log("chamber run <intact|hypoxic|invasive> <hours>");
-  console.log("chamber campaign adhesion");
+  console.log("chamber campaign adhesion|hypoxic-seeds");
   console.log("chamber ledger");
 }

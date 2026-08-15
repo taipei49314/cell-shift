@@ -31,6 +31,7 @@ Each answer is a number from the current world, not a biological claim.
 ## Locked protocols (`npm test`)
 
 - **Hypoxic spheroid** · seed 4821 · 240 h · `core O₂ < rim O₂` and necrotic fraction > 0
+- **Hypoxic spheroid multi-seed** · seeds 4821, 7, 21, 99, 2026 · 240 h · every listed seed has `core O₂ < rim O₂` (fail-closed; do not drop a failing seed)
 - **Adhesion** · same seed, only adhesion changes · low adhesion r90 > high adhesion r90
 - Same seed + same spec → same tissue
 - SHIFT C1 `cycle_rate +` vs unshifted C2 → C1 share rises

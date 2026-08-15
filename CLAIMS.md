@@ -7,6 +7,7 @@ not calibrated to wet-lab or clinical data, and not a medical device.
 | --- | --- |
 | Same seed + same rules produce the same trajectory | Measured by `npm test` |
 | Protocol **Hypoxic spheroid** (seed 4821, 240 h): mean core O₂ < mean rim O₂, necrotic fraction > 0 | Measured by `npm test` — chamber geometry, not histopathology |
+| Protocol **Hypoxic spheroid** (seeds 4821, 7, 21, 99, 2026, 240 h): mean core O₂ < mean rim O₂ on every listed seed | Measured by `npm test` — fail-closed; chamber geometry, not histopathology |
 | Same seed, lower adhesion → larger r90 | Measured by `npm test` |
 | Experiment hash is a function of seed + env + rules + SHIFT | Measured by `npm test` |
 | Same seed + same SHIFT produce the same tissue | Measured by `npm test` |

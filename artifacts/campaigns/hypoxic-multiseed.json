@@ -1,0 +1,82 @@
+{
+  "name": "hypoxic-multiseed",
+  "factor": "seed",
+  "hours": 240,
+  "rows": [
+    {
+      "label": "seed=4821",
+      "hash": "57aa53b3",
+      "hours": 240,
+      "morphology": {
+        "r90": 3.3162078370582297,
+        "necroticFrac": 0.6976744186046512,
+        "hypoxicFrac": 1,
+        "coreO2": 0.0805677574030298,
+        "rimO2": 0.13067959036209587,
+        "o2Drop": 0.05011183295906607,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "seed=7",
+      "hash": "b77a502d",
+      "hours": 240,
+      "morphology": {
+        "r90": 1.8821991823788895,
+        "necroticFrac": 0.5862068965517241,
+        "hypoxicFrac": 1,
+        "coreO2": 0,
+        "rimO2": 0.1659236646323452,
+        "o2Drop": 0.1659236646323452,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "seed=21",
+      "hash": "6ce72b5f",
+      "hours": 240,
+      "morphology": {
+        "r90": 2.7039903459346637,
+        "necroticFrac": 0.5714285714285714,
+        "hypoxicFrac": 0.6666666666666666,
+        "coreO2": 0.06867058240555074,
+        "rimO2": 0.2725113280259807,
+        "o2Drop": 0.20384074562042998,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "seed=99",
+      "hash": "d320214c",
+      "hours": 240,
+      "morphology": {
+        "r90": 1.9892712149321978,
+        "necroticFrac": 0.8,
+        "hypoxicFrac": 0.6666666666666666,
+        "coreO2": 0.09147988652908727,
+        "rimO2": 0.2804545284228966,
+        "o2Drop": 0.1889746418938093,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "seed=2026",
+      "hash": "a6cbeaa0",
+      "hours": 240,
+      "morphology": {
+        "r90": 2.0890564346130014,
+        "necroticFrac": 0.7222222222222222,
+        "hypoxicFrac": 1,
+        "coreO2": 0,
+        "rimO2": 0.20923428723369064,
+        "o2Drop": 0.20923428723369064,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    }
+  ]
+}
