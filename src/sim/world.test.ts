@@ -45,7 +45,7 @@ describe("CELL//SHIFT chamber", () => {
       seed: 3,
       founders: 6,
       env: { oxygen: 1, nutrient: 1, mutationRate: 0 },
-      rules: { cycleHours: 12, deathRate: 0.01, adhesion: 0.7 },
+      rules: { cycleHours: 12, deathRate: 0.01, adhesion: 0.7, motility: 0.06 },
     });
     for (let i = 0; i < 80; i++) step(world);
     const child = world.cells.find((c) => c.parentId !== null);

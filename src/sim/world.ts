@@ -1,3 +1,4 @@
+import { createField, sampleField, stepField, type SubstrateField } from "./field";
 import { lineageChain, lineageIds } from "./lineage";
 import { Rng } from "./rng";
 import {
@@ -15,6 +16,7 @@ export type World = {
   spawnRules: WorldConfig["rules"];
   rng: Rng;
   cells: Cell[];
+  field: SubstrateField;
   hours: number;
   nextId: number;
   nextClone: number;
@@ -39,7 +41,7 @@ function baseTraits(rules: WorldConfig["rules"]): Traits {
     oxygenTolerance: 0.28,
     uptake: 1,
     adhesion: rules.adhesion,
-    motility: 0.06,
+    motility: rules.motility,
     apoptosisThreshold: rules.deathRate,
   };
 }
@@ -116,27 +118,6 @@ function nearby(
   return hits;
 }
 
-function sampleOxygen(
-  cell: Cell,
-  cells: Cell[],
-  neighbors: number[],
-  env: WorldConfig["env"],
-  chamberRadius: number,
-): number {
-  const r = Math.hypot(cell.pos[0], cell.pos[1], cell.pos[2]);
-  const radial = 0.22 + 0.78 * Math.min(1, r / chamberRadius);
-  let consume = 0;
-  for (const i of neighbors) {
-    const other = cells[i]!;
-    if (!other.dead) consume += other.traits.uptake;
-  }
-  return clamp(
-    env.oxygen * radial * (0.4 + 0.6 * env.nutrient) - consume * 0.014,
-    0,
-    1,
-  );
-}
-
 export function createWorld(partial: Partial<WorldConfig> = {}): World {
   const config: WorldConfig = {
     ...DEFAULT_CONFIG,
@@ -173,6 +154,7 @@ export function createWorld(partial: Partial<WorldConfig> = {}): World {
     spawnRules: { ...config.rules },
     rng,
     cells,
+    field: createField(config.chamberRadius, config.env.oxygen),
     hours: 0,
     nextId: config.founders + 1,
     nextClone: 2,
@@ -213,10 +195,12 @@ export function step(world: World): void {
   const grid = buildGrid(cells, gridSize);
   const born: Cell[] = [];
 
+  stepField(world.field, cells, env, dt);
+
   for (const cell of cells) {
     if (cell.dead) continue;
     const neighbors = nearby(cells, grid, cell.pos, gridSize, cellRadius * 4.2);
-    cell.oxygen = sampleOxygen(cell, cells, neighbors, env, chamberRadius);
+    cell.oxygen = sampleField(world.field, cell.pos[0], cell.pos[1], cell.pos[2]);
     cell.age += dt;
 
     const livingNeighbors = neighbors.filter((i) => !cells[i]!.dead).length;
@@ -317,7 +301,8 @@ export function step(world: World): void {
           fz -= (dz / d) * pull;
         }
       }
-      const walk = cell.traits.motility * 0.08;
+      const motilityScale = rules.motility / Math.max(0.01, world.spawnRules.motility);
+      const walk = cell.traits.motility * motilityScale * 0.08;
       const jitter = rng.unitSphere();
       cell.pos[0] += fx + jitter[0] * walk;
       cell.pos[1] += fy + jitter[1] * walk;

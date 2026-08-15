@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { HORIZON_HOURS } from "./sim/types";
 import { cloneHue, fmt, mutationLine } from "./ui/format";
+import { RadialProfile } from "./ui/RadialProfile";
 import { TissueChamber } from "./ui/TissueChamber";
 import { useSimulation } from "./ui/useSimulation";
 
@@ -61,11 +62,24 @@ export function App() {
               onChange={(e) => sim.setSeed(Number(e.target.value) || 0)}
             />
           </label>
+          <span className="ml-3 text-[10px] tracking-wide text-mute">
+            exp {view.hash}
+          </span>
         </div>
       </header>
 
       <div className="grid min-h-0 flex-1 grid-cols-[240px_minmax(0,1fr)_260px]">
         <aside className="panel flex flex-col gap-6 overflow-auto p-4">
+          <section className="space-y-2">
+            <h2 className="text-[11px] tracking-[0.22em] text-mute">PROTOCOL</h2>
+            <div className="flex flex-col gap-1">
+              {Object.entries(sim.presets).map(([id, spec]) => (
+                <button className="btn text-left" key={id} onClick={() => sim.loadPreset(spec)} type="button">
+                  {spec.name}
+                </button>
+              ))}
+            </div>
+          </section>
           <section className="space-y-4">
             <h2 className="text-[11px] tracking-[0.22em] text-mute">ENVIRONMENT</h2>
             <SliderRow
@@ -125,6 +139,19 @@ export function App() {
               numeric={sim.rules.adhesion}
               onChange={(n) => sim.setRules({ ...sim.rules, adhesion: n })}
             />
+            <SliderRow
+              label="Motility"
+              value={fmt(sim.rules.motility, 2)}
+              min={0.01}
+              max={0.4}
+              step={0.01}
+              numeric={sim.rules.motility}
+              onChange={(n) => sim.setRules({ ...sim.rules, motility: n })}
+            />
+          </section>
+          <section className="space-y-2">
+            <h2 className="text-[11px] tracking-[0.22em] text-mute">O₂(r)</h2>
+            <RadialProfile bins={view.profile} />
           </section>
           <p className="mt-auto text-[10px] leading-relaxed text-mute">
             Spatial agent toy. Not a biological model. Same seed + same rules =
@@ -234,13 +261,23 @@ export function App() {
             Cells: <em className="not-italic text-ink">{view.stats.cells.toLocaleString()}</em>
           </span>
           <span>
+            r90: <em className="not-italic text-ink">{fmt(view.morphology.r90, 2)}</em>
+          </span>
+          <span>
+            Necrotic: <em className="not-italic text-ink">{fmt(view.morphology.necroticFrac * 100, 0)}%</em>
+          </span>
+          <span>
+            O₂ core/rim:{" "}
+            <em className="not-italic text-ink">
+              {fmt(view.morphology.coreO2)} / {fmt(view.morphology.rimO2)}
+            </em>
+          </span>
+          <span>
+            Clone {view.morphology.dominantClone}:{" "}
+            <em className="not-italic text-live">{fmt(view.morphology.dominantShare * 100, 0)}%</em>
+          </span>
+          <span>
             Mutant: <em className="not-italic text-mut">{fmt(view.stats.mutantPct, 0)}%</em>
-          </span>
-          <span>
-            Dead: <em className="not-italic text-ink">{fmt(view.stats.deadPct, 0)}%</em>
-          </span>
-          <span>
-            Clones: <em className="not-italic text-live">{view.stats.clones}</em>
           </span>
           <span className="ml-auto text-ink">{fmt(hours, 0)}h</span>
         </div>

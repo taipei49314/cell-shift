@@ -54,6 +54,7 @@ export type RuleParams = {
   cycleHours: number;
   deathRate: number;
   adhesion: number;
+  motility: number;
 };
 
 export type WorldConfig = {
@@ -77,6 +78,26 @@ export type WorldStats = {
   clones: number;
 };
 
+export type Morphology = {
+  r90: number;
+  necroticFrac: number;
+  hypoxicFrac: number;
+  coreO2: number;
+  rimO2: number;
+  o2Drop: number;
+  dominantClone: string;
+  dominantShare: number;
+};
+
+export type RadialBin = {
+  rMid: number;
+  n: number;
+  o2: number;
+  necrotic: number;
+  hypoxic: number;
+  cycling: number;
+};
+
 export const DEFAULT_ENV: EnvParams = {
   oxygen: 0.8,
   nutrient: 0.7,
@@ -87,6 +108,7 @@ export const DEFAULT_RULES: RuleParams = {
   cycleHours: 24,
   deathRate: 0.1,
   adhesion: 0.7,
+  motility: 0.06,
 };
 
 export const DEFAULT_CONFIG: WorldConfig = {

@@ -12,6 +12,7 @@ state, clone, and mutations. **Trace lineage** lights only its ancestors and
 descendants.
 
 This is not a biological model. See [CLAIMS.md](CLAIMS.md).
+Personal research questions and locked protocols: [RESEARCH.md](RESEARCH.md).
 
 ## Run
 
@@ -38,8 +39,9 @@ the same sliders and you get the same tissue.
 Each cell is an agent with a parent, a clone id, a 3D position, and a small
 trait vector (cycle time, oxygen tolerance, uptake, adhesion, motility).
 
-- Oxygen is richer at the chamber rim and is consumed locally. The core of a
-  dense mass goes hypoxic, then necrotic.
+- Oxygen lives on a 24³ reaction–diffusion grid (boundary supply, cell
+  consumption). A packed mass can form a hypoxic / necrotic core. That is a
+  measured chamber protocol, not a biological calibration.
 - Division copies traits. With the mutation rate, a daughter shifts one trait
   and becomes a new clone (`C1 → C2 → C3`).
 - Fitter clones (faster cycle, lower apoptosis, higher hypoxia tolerance)

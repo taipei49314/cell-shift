@@ -6,9 +6,11 @@ not calibrated to wet-lab or clinical data, and not a medical device.
 | Claim | Status |
 | --- | --- |
 | Same seed + same rules produce the same trajectory | Measured by `npm test` |
-| Local rules (cycle, death, adhesion, oxygen) can form a dense mass with a hypoxic/necrotic core | Observable in the chamber — morphological rhyme, not biology |
-| Mutant clones can expand if their trait deltas confer a fitness advantage under the current environment | Observable; not a claim about any real driver gene |
-| This represents a specific cancer, patient, therapy, or prognosis | **Not claimed** |
+| Protocol **Hypoxic spheroid** (seed 4821, 240 h): mean core O₂ < mean rim O₂, necrotic fraction > 0 | Measured by `npm test` — chamber geometry, not histopathology |
+| Same seed, lower adhesion → larger r90 | Measured by `npm test` |
+| Experiment hash is a function of seed + env + rules only | Measured by `npm test` |
+| Mutant clones can expand if trait deltas confer a fitness advantage in this chamber | Observable; not a claim about any real driver gene |
+| This represents a specific cancer, patient, therapy, or PhysiCell result | **Not claimed** |
 | Parameters are physiologically accurate | **Not claimed** |
 
 `UNKNOWN` is preferred to a false scientific sentence.
