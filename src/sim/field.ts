@@ -96,13 +96,19 @@ export function sampleField(field: SubstrateField, x: number, y: number, z: numb
   return Math.min(1, Math.max(0, c0 * (1 - tz) + c1 * tz));
 }
 
-export function stepField(field: SubstrateField, cells: readonly Cell[], env: EnvParams, dt: number): void {
+export function stepField(
+  field: SubstrateField,
+  cells: readonly Cell[],
+  env: EnvParams,
+  dt: number,
+  uptakeOf: (cell: Cell) => number = (cell) => cell.traits.uptake,
+): void {
   const { n, oxygen, scratch, consume } = field;
   consume.fill(0);
   for (const cell of cells) {
     if (cell.dead) continue;
     const [i, j, k] = voxelAt(field, cell.pos[0], cell.pos[1], cell.pos[2]);
-    consume[idx(i, j, k, n)]! += cell.traits.uptake * FIELD.consume;
+    consume[idx(i, j, k, n)]! += uptakeOf(cell) * FIELD.consume;
   }
 
   const supply = env.oxygen;

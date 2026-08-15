@@ -1,5 +1,21 @@
 import type { Cell, Morphology, RadialBin } from "./types";
 
+export type CloneShare = {
+  cloneId: string;
+  n: number;
+  share: number;
+};
+
+export function livingShares(cells: readonly Cell[]): CloneShare[] {
+  const living = cells.filter((c) => !c.dead);
+  const counts = new Map<string, number>();
+  for (const cell of living) counts.set(cell.cloneId, (counts.get(cell.cloneId) ?? 0) + 1);
+  const total = Math.max(1, living.length);
+  return [...counts.entries()]
+    .map(([cloneId, n]) => ({ cloneId, n, share: n / total }))
+    .sort((a, b) => b.n - a.n);
+}
+
 function radiusOf(cell: Cell): number {
   return Math.hypot(cell.pos[0], cell.pos[1], cell.pos[2]);
 }

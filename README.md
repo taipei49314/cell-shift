@@ -48,7 +48,10 @@ trait vector (cycle time, oxygen tolerance, uptake, adhesion, motility).
 - Fitter clones (faster cycle, lower apoptosis, higher hypoxia tolerance)
   take space. That is the only "oncogene" here: a number.
 
-Deterministic PRNG: mulberry32. Replay from `t = 0` when you scrub backward.
+Deterministic PRNG: mulberry32. The timeline stores a frame every 6 h and
+seeks by restoring a frame — it does not replay from t = 0. A clone SHIFT is
+an overlay on one clone id; it enters the experiment hash and is written in
+on RESET.
 
 ## Name
 

@@ -57,10 +57,16 @@ export type RuleParams = {
   motility: number;
 };
 
+export type CloneShift = {
+  cloneId: string;
+  deltas: Partial<Record<MutationGene, number>>;
+};
+
 export type WorldConfig = {
   seed: number;
   env: EnvParams;
   rules: RuleParams;
+  shift: CloneShift | null;
   dt: number;
   maxCells: number;
   chamberRadius: number;
@@ -115,11 +121,22 @@ export const DEFAULT_CONFIG: WorldConfig = {
   seed: 4821,
   env: DEFAULT_ENV,
   rules: DEFAULT_RULES,
+  shift: null,
   dt: 1,
   maxCells: 6000,
   chamberRadius: 18,
   cellRadius: 0.42,
   founders: 12,
 };
+
+export const SNAPSHOT_EVERY = 6;
+export const GENES: MutationGene[] = [
+  "cycle_rate",
+  "apoptosis_threshold",
+  "hypoxia_tolerance",
+  "adhesion",
+  "motility",
+  "uptake",
+];
 
 export const HORIZON_HOURS = 720;

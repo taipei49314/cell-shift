@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
-import { HORIZON_HOURS } from "./sim/types";
-import { cloneHue, fmt, mutationLine } from "./ui/format";
+import { GENES, HORIZON_HOURS } from "./sim/types";
+import { CloneSeries } from "./ui/CloneSeries";
+import { cloneHue, fmt, mutationLine, signedPct } from "./ui/format";
 import { RadialProfile } from "./ui/RadialProfile";
 import { TissueChamber } from "./ui/TissueChamber";
 import { useSimulation } from "./ui/useSimulation";
@@ -149,6 +150,42 @@ export function App() {
               onChange={(n) => sim.setRules({ ...sim.rules, motility: n })}
             />
           </section>
+          <section className="space-y-3">
+            <h2 className="text-[11px] tracking-[0.22em] text-mute">SHIFT</h2>
+            <label className="grid grid-cols-[1fr_auto] items-center gap-2 text-[11px]">
+              <span className="text-mute">Clone</span>
+              <input
+                className="w-16 border border-line bg-void px-1 py-0.5 text-right text-ink outline-none"
+                value={sim.shift.cloneId}
+                onChange={(e) => sim.setShift({ ...sim.shift, cloneId: e.target.value.toUpperCase() })}
+              />
+            </label>
+            {cell && (
+              <button className="btn w-full" onClick={() => sim.armClone(cell.cloneId)} type="button">
+                ARM {cell.cloneId}
+              </button>
+            )}
+            {GENES.map((gene) => (
+              <SliderRow
+                key={gene}
+                label={gene}
+                value={signedPct(sim.shift.deltas[gene] ?? 0)}
+                min={-40}
+                max={40}
+                step={1}
+                numeric={Math.round((sim.shift.deltas[gene] ?? 0) * 100)}
+                onChange={(n) =>
+                  sim.setShift({
+                    ...sim.shift,
+                    deltas: { ...sim.shift.deltas, [gene]: n / 100 },
+                  })
+                }
+              />
+            ))}
+            <p className="text-[10px] text-mute">
+              {sim.armed ? `Armed on ${sim.armed.cloneId}. RESET writes it in.` : "No SHIFT armed. RESET uses wild type."}
+            </p>
+          </section>
           <section className="space-y-2">
             <h2 className="text-[11px] tracking-[0.22em] text-mute">O₂(r)</h2>
             <RadialProfile bins={view.profile} />
@@ -194,11 +231,11 @@ export function App() {
                 <Row k="Generation" v={String(cell.generation)} />
                 <Row k="Parent" v={cell.parentId === null ? "founder" : `#${cell.parentId}`} />
                 <div className="my-3 h-px bg-line" />
-                <Row k="Cycle time" v={`${fmt(cell.traits.cycleTime, 1)} h`} />
-                <Row k="Oxygen tolerance" v={fmt(cell.traits.oxygenTolerance)} />
-                <Row k="Uptake" v={fmt(cell.traits.uptake)} />
-                <Row k="Adhesion" v={fmt(cell.traits.adhesion)} />
-                <Row k="Motility" v={fmt(cell.traits.motility)} />
+                <Row k="Cycle time" v={`${fmt((view.effective ?? cell.traits).cycleTime, 1)} h`} />
+                <Row k="Oxygen tolerance" v={fmt((view.effective ?? cell.traits).oxygenTolerance)} />
+                <Row k="Uptake" v={fmt((view.effective ?? cell.traits).uptake)} />
+                <Row k="Adhesion" v={fmt((view.effective ?? cell.traits).adhesion)} />
+                <Row k="Motility" v={fmt((view.effective ?? cell.traits).motility)} />
                 <div className="pt-2 text-[10px] text-mute">
                   Age {fmt(cell.age, 1)} h · O₂ {fmt(cell.oxygen)}
                 </div>
@@ -255,6 +292,27 @@ export function App() {
             onChange={(e) => sim.seekHours(Number(e.target.value))}
           />
           <span className="w-12 text-right text-mute">{HORIZON_HOURS}h</span>
+          {([1, 4, 16] as const).map((n) => (
+            <button className="btn" data-on={sim.speed === n} key={n} onClick={() => sim.setSpeed(n)} type="button">
+              {n}x
+            </button>
+          ))}
+        </div>
+        <CloneSeries series={view.series} />
+        <div className="flex flex-wrap items-center gap-2">
+          <button className="btn" disabled={!sim.armed} onClick={() => sim.compare("shift")} type="button">
+            VS NO SHIFT
+          </button>
+          <button className="btn" onClick={() => sim.compare("adhesion")} type="button">
+            VS ADHESION
+          </button>
+          {sim.contrast && (
+            <span className="text-[10px] text-mute">
+              {sim.contrast.label}: r90 {fmt(sim.contrast.morphology.r90, 2)} · necrotic{" "}
+              {fmt(sim.contrast.morphology.necroticFrac * 100, 0)}% · {sim.contrast.morphology.dominantClone}{" "}
+              {fmt(sim.contrast.morphology.dominantShare * 100, 0)}%
+            </span>
+          )}
         </div>
         <div className="flex flex-wrap gap-x-8 gap-y-1 text-[11px] text-mute">
           <span>

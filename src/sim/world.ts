@@ -1,11 +1,13 @@
 import { createField, sampleField, stepField, type SubstrateField } from "./field";
 import { lineageChain, lineageIds } from "./lineage";
 import { Rng } from "./rng";
+import { applyGene, effectiveTraits } from "./shift";
+import { captureFrame, maybeRecord, restoreTo, type Frame } from "./snapshot";
 import {
   DEFAULT_CONFIG,
+  GENES,
   type Cell,
   type Mutation,
-  type MutationGene,
   type Traits,
   type WorldConfig,
   type WorldStats,
@@ -20,20 +22,8 @@ export type World = {
   hours: number;
   nextId: number;
   nextClone: number;
+  frames: Frame[];
 };
-
-const GENES: MutationGene[] = [
-  "cycle_rate",
-  "apoptosis_threshold",
-  "hypoxia_tolerance",
-  "adhesion",
-  "motility",
-  "uptake",
-];
-
-function clamp(x: number, lo: number, hi: number): number {
-  return Math.min(hi, Math.max(lo, x));
-}
 
 function baseTraits(rules: WorldConfig["rules"]): Traits {
   return {
@@ -44,31 +34,6 @@ function baseTraits(rules: WorldConfig["rules"]): Traits {
     motility: rules.motility,
     apoptosisThreshold: rules.deathRate,
   };
-}
-
-function applyMutation(traits: Traits, gene: MutationGene, delta: number): Traits {
-  const next = { ...traits };
-  switch (gene) {
-    case "cycle_rate":
-      next.cycleTime = clamp(next.cycleTime * (1 - delta), 8, 48);
-      break;
-    case "apoptosis_threshold":
-      next.apoptosisThreshold = clamp(next.apoptosisThreshold * (1 + delta), 0.01, 0.6);
-      break;
-    case "hypoxia_tolerance":
-      next.oxygenTolerance = clamp(next.oxygenTolerance * (1 - delta), 0.04, 0.6);
-      break;
-    case "adhesion":
-      next.adhesion = clamp(next.adhesion * (1 + delta), 0.05, 1.4);
-      break;
-    case "motility":
-      next.motility = clamp(next.motility * (1 + delta), 0.01, 0.5);
-      break;
-    case "uptake":
-      next.uptake = clamp(next.uptake * (1 + delta), 0.3, 2.4);
-      break;
-  }
-  return next;
 }
 
 function hashKey(x: number, y: number, z: number, size: number): string {
@@ -124,6 +89,7 @@ export function createWorld(partial: Partial<WorldConfig> = {}): World {
     ...partial,
     env: { ...DEFAULT_CONFIG.env, ...partial.env },
     rules: { ...DEFAULT_CONFIG.rules, ...partial.rules },
+    shift: partial.shift !== undefined ? partial.shift : DEFAULT_CONFIG.shift,
   };
   const rng = new Rng(config.seed);
   const cells: Cell[] = [];
@@ -149,7 +115,7 @@ export function createWorld(partial: Partial<WorldConfig> = {}): World {
     });
   }
 
-  return {
+  const world: World = {
     config,
     spawnRules: { ...config.rules },
     rng,
@@ -158,7 +124,10 @@ export function createWorld(partial: Partial<WorldConfig> = {}): World {
     hours: 0,
     nextId: config.founders + 1,
     nextClone: 2,
+    frames: [],
   };
+  world.frames.push(captureFrame(world));
+  return world;
 }
 
 function maybeMutate(world: World, parent: Cell): { traits: Traits; mutations: Mutation[]; cloneId: string } {
@@ -182,7 +151,7 @@ function maybeMutate(world: World, parent: Cell): { traits: Traits; mutations: M
           : -magnitude;
   const mutation: Mutation = { gene, delta };
   return {
-    traits: applyMutation(parent.traits, gene, delta),
+    traits: applyGene(parent.traits, gene, delta),
     mutations: [...parent.mutations, mutation],
     cloneId: `C${world.nextClone++}`,
   };
@@ -195,10 +164,12 @@ export function step(world: World): void {
   const grid = buildGrid(cells, gridSize);
   const born: Cell[] = [];
 
-  stepField(world.field, cells, env, dt);
+  const shift = world.config.shift;
+  stepField(world.field, cells, env, dt, (cell) => effectiveTraits(cell, shift).uptake);
 
   for (const cell of cells) {
     if (cell.dead) continue;
+    const traits = effectiveTraits(cell, shift);
     const neighbors = nearby(cells, grid, cell.pos, gridSize, cellRadius * 4.2);
     cell.oxygen = sampleField(world.field, cell.pos[0], cell.pos[1], cell.pos[2]);
     cell.age += dt;
@@ -206,13 +177,13 @@ export function step(world: World): void {
     const livingNeighbors = neighbors.filter((i) => !cells[i]!.dead).length;
     const crowded = livingNeighbors >= 14;
 
-    if (cell.oxygen < cell.traits.oxygenTolerance * 0.35) {
+    if (cell.oxygen < traits.oxygenTolerance * 0.35) {
       cell.state = "NECROTIC";
       cell.dead = true;
       continue;
     }
 
-    if (cell.oxygen < cell.traits.oxygenTolerance) {
+    if (cell.oxygen < traits.oxygenTolerance) {
       cell.state = "HYPOXIC";
     } else if (crowded) {
       cell.state = "QUIESCENT";
@@ -222,7 +193,7 @@ export function step(world: World): void {
 
     const deathScale = rules.deathRate / Math.max(0.01, world.spawnRules.deathRate);
     const deathP =
-      cell.traits.apoptosisThreshold *
+      traits.apoptosisThreshold *
       deathScale *
       (dt / 24) *
       (cell.state === "HYPOXIC" ? 3.4 : 1) *
@@ -235,7 +206,7 @@ export function step(world: World): void {
 
     if (cell.state === "CYCLING" || cell.state === "HYPOXIC") {
       const cycleScale = rules.cycleHours / Math.max(6, world.spawnRules.cycleHours);
-      const cycleTime = Math.max(6, cell.traits.cycleTime * cycleScale);
+      const cycleTime = Math.max(6, traits.cycleTime * cycleScale);
       const oxygenFactor = cell.state === "HYPOXIC" ? 0.35 : 0.55 + 0.45 * cell.oxygen;
       const nutrientFactor = 0.45 + 0.55 * env.nutrient;
       cell.cycleProgress += (dt / cycleTime) * oxygenFactor * nutrientFactor;
@@ -295,14 +266,14 @@ export function step(world: World): void {
           fz += (dz / d) * push;
         } else if (!other.dead && other.cloneId === cell.cloneId) {
           const adhesionScale = rules.adhesion / Math.max(0.05, world.spawnRules.adhesion);
-          const pull = cell.traits.adhesion * adhesionScale * 0.012;
+          const pull = effectiveTraits(cell, shift).adhesion * adhesionScale * 0.012;
           fx -= (dx / d) * pull;
           fy -= (dy / d) * pull;
           fz -= (dz / d) * pull;
         }
       }
       const motilityScale = rules.motility / Math.max(0.01, world.spawnRules.motility);
-      const walk = cell.traits.motility * motilityScale * 0.08;
+      const walk = effectiveTraits(cell, shift).motility * motilityScale * 0.08;
       const jitter = rng.unitSphere();
       cell.pos[0] += fx + jitter[0] * walk;
       cell.pos[1] += fy + jitter[1] * walk;
@@ -320,6 +291,15 @@ export function step(world: World): void {
   }
 
   world.hours += dt;
+  maybeRecord(world);
+}
+
+export function seekTo(world: World, hours: number): void {
+  const target = Math.max(0, hours);
+  if (target + 1e-9 < world.hours) {
+    if (!restoreTo(world, target)) return;
+  }
+  while (world.hours + 1e-9 < target) step(world);
 }
 
 export function replayTo(config: Partial<WorldConfig>, hours: number): World {

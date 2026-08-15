@@ -32,4 +32,13 @@ export class Rng {
     const r = Math.sqrt(Math.max(0, 1 - u * u));
     return [r * Math.cos(phi), u, r * Math.sin(phi)];
   }
+
+  state(): number {
+    return this.s;
+  }
+
+  setState(s: number): void {
+    this.s = s >>> 0;
+    if (this.s === 0) this.s = 0x9e3779b9;
+  }
 }

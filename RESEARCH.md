@@ -24,13 +24,17 @@ Each answer is a number from the current world, not a biological claim.
 | core O₂ | mean cell oxygen at r ≤ 0.35 · r90 |
 | rim O₂ | mean cell oxygen at r ≥ 0.70 · r90 |
 | O₂(r) | binned radial profile |
-| experiment hash | FNV-1a of seed + env + rules |
+| experiment hash | FNV-1a of seed + env + rules + SHIFT |
+| SHIFT | Overlay deltas on one clone id; new mutant clones do not inherit it |
+| clone share series | Living-clone fractions at each 6 h snapshot |
 
 ## Locked protocols (`npm test`)
 
 - **Hypoxic spheroid** · seed 4821 · 240 h · `core O₂ < rim O₂` and necrotic fraction > 0
 - **Adhesion** · same seed, only adhesion changes · low adhesion r90 > high adhesion r90
 - Same seed + same spec → same tissue
+- SHIFT C1 `cycle_rate +` vs unshifted C2 → C1 share rises
+- Seek to a recorded hour restores that frame (no replay from t=0)
 
 ## Protocols in the UI
 

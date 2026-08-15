@@ -1,10 +1,12 @@
-import { DEFAULT_ENV, DEFAULT_RULES, type EnvParams, type RuleParams } from "./types";
+import { shiftActive } from "./shift";
+import { DEFAULT_ENV, DEFAULT_RULES, GENES, type CloneShift, type EnvParams, type RuleParams } from "./types";
 
 export type ExperimentSpec = {
   name: string;
   seed: number;
   env: EnvParams;
   rules: RuleParams;
+  shift?: CloneShift | null;
 };
 
 function round(n: number, digits: number): number {
@@ -12,7 +14,17 @@ function round(n: number, digits: number): number {
   return Math.round(n * p) / p;
 }
 
-export function experimentPayload(spec: Pick<ExperimentSpec, "seed" | "env" | "rules">): string {
+function shiftPayload(shift: CloneShift | null | undefined) {
+  if (!shiftActive(shift)) return null;
+  const deltas: Record<string, number> = {};
+  for (const gene of GENES) {
+    const d = shift.deltas[gene];
+    if (d) deltas[gene] = round(d, 4);
+  }
+  return { cloneId: shift.cloneId, deltas };
+}
+
+export function experimentPayload(spec: Pick<ExperimentSpec, "seed" | "env" | "rules" | "shift">): string {
   return JSON.stringify({
     seed: spec.seed,
     env: {
@@ -26,10 +38,11 @@ export function experimentPayload(spec: Pick<ExperimentSpec, "seed" | "env" | "r
       adhesion: round(spec.rules.adhesion, 4),
       motility: round(spec.rules.motility, 4),
     },
+    shift: shiftPayload(spec.shift),
   });
 }
 
-export function experimentHash(spec: Pick<ExperimentSpec, "seed" | "env" | "rules">): string {
+export function experimentHash(spec: Pick<ExperimentSpec, "seed" | "env" | "rules" | "shift">): string {
   const s = experimentPayload(spec);
   let h = 0x811c9dc5;
   for (let i = 0; i < s.length; i++) {
