@@ -1,0 +1,259 @@
+import type { ReactNode } from "react";
+import { HORIZON_HOURS } from "./sim/types";
+import { cloneHue, fmt, mutationLine } from "./ui/format";
+import { TissueChamber } from "./ui/TissueChamber";
+import { useSimulation } from "./ui/useSimulation";
+
+function SliderRow(props: {
+  label: string;
+  value: string;
+  min: number;
+  max: number;
+  step: number;
+  numeric: number;
+  onChange: (n: number) => void;
+}) {
+  return (
+    <label className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 text-[11px] tracking-wide">
+      <span className="text-mute">{props.label}</span>
+      <span className="text-live text-right">{props.value}</span>
+      <input
+        className="col-span-2"
+        type="range"
+        min={props.min}
+        max={props.max}
+        step={props.step}
+        value={props.numeric}
+        onChange={(e) => props.onChange(Number(e.target.value))}
+      />
+    </label>
+  );
+}
+
+export function App() {
+  const sim = useSimulation();
+  const { view } = sim;
+  const cell = view.selected;
+  const hours = view.stats.hours;
+
+  return (
+    <div className="flex h-full flex-col text-[12px]">
+      <header className="panel flex items-center justify-between px-4 py-2">
+        <div className="text-[15px] font-medium tracking-[0.28em]">
+          CELL<span className="text-live">//</span>SHIFT
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="btn" data-on={sim.running} onClick={sim.run} type="button">
+            RUN
+          </button>
+          <button className="btn" data-on={!sim.running} onClick={sim.pause} type="button">
+            PAUSE
+          </button>
+          <button className="btn" onClick={() => sim.reset()} type="button">
+            RESET
+          </button>
+          <label className="ml-3 flex items-center gap-2 text-mute">
+            Seed
+            <input
+              className="w-20 border border-line bg-void px-2 py-1 text-ink outline-none"
+              type="number"
+              value={sim.seed}
+              onChange={(e) => sim.setSeed(Number(e.target.value) || 0)}
+            />
+          </label>
+        </div>
+      </header>
+
+      <div className="grid min-h-0 flex-1 grid-cols-[240px_minmax(0,1fr)_260px]">
+        <aside className="panel flex flex-col gap-6 overflow-auto p-4">
+          <section className="space-y-4">
+            <h2 className="text-[11px] tracking-[0.22em] text-mute">ENVIRONMENT</h2>
+            <SliderRow
+              label="Oxygen"
+              value={`${Math.round(sim.env.oxygen * 100)}%`}
+              min={10}
+              max={100}
+              step={1}
+              numeric={sim.env.oxygen * 100}
+              onChange={(n) => sim.setEnv({ ...sim.env, oxygen: n / 100 })}
+            />
+            <SliderRow
+              label="Nutrient"
+              value={`${Math.round(sim.env.nutrient * 100)}%`}
+              min={10}
+              max={100}
+              step={1}
+              numeric={sim.env.nutrient * 100}
+              onChange={(n) => sim.setEnv({ ...sim.env, nutrient: n / 100 })}
+            />
+            <SliderRow
+              label="Mutation"
+              value={`${(sim.env.mutationRate * 100).toFixed(1)}%`}
+              min={0}
+              max={5}
+              step={0.1}
+              numeric={sim.env.mutationRate * 100}
+              onChange={(n) => sim.setEnv({ ...sim.env, mutationRate: n / 100 })}
+            />
+          </section>
+          <section className="space-y-4">
+            <h2 className="text-[11px] tracking-[0.22em] text-mute">CELL RULES</h2>
+            <SliderRow
+              label="Cycle"
+              value={`${sim.rules.cycleHours}h`}
+              min={8}
+              max={48}
+              step={1}
+              numeric={sim.rules.cycleHours}
+              onChange={(n) => sim.setRules({ ...sim.rules, cycleHours: n })}
+            />
+            <SliderRow
+              label="Death"
+              value={fmt(sim.rules.deathRate, 2)}
+              min={0.01}
+              max={0.4}
+              step={0.01}
+              numeric={sim.rules.deathRate}
+              onChange={(n) => sim.setRules({ ...sim.rules, deathRate: n })}
+            />
+            <SliderRow
+              label="Adhesion"
+              value={fmt(sim.rules.adhesion, 2)}
+              min={0.1}
+              max={1.2}
+              step={0.05}
+              numeric={sim.rules.adhesion}
+              onChange={(n) => sim.setRules({ ...sim.rules, adhesion: n })}
+            />
+          </section>
+          <p className="mt-auto text-[10px] leading-relaxed text-mute">
+            Spatial agent toy. Not a biological model. Same seed + same rules =
+            same tissue.
+          </p>
+        </aside>
+
+        <main className="relative min-h-0 bg-void">
+          <div className="pointer-events-none absolute left-4 top-4 z-10 text-[10px] tracking-[0.2em] text-mute">
+            3D TISSUE
+          </div>
+          <TissueChamber
+            worldRef={sim.worldRef}
+            selectedId={sim.selectedId}
+            lineageMode={sim.lineageMode}
+            lineageSet={sim.lineageSet}
+            onSelect={sim.select}
+          />
+        </main>
+
+        <aside className="panel flex flex-col gap-5 overflow-auto p-4">
+          <section>
+            <h2 className="mb-3 text-[11px] tracking-[0.22em] text-mute">CELL INSPECTOR</h2>
+            {cell ? (
+              <div className="space-y-3">
+                <div className="text-[15px] tracking-wide">Cell #{cell.id}</div>
+                <Row k="State" v={cell.state} />
+                <Row
+                  k="Clone"
+                  v={
+                    <span className="inline-flex items-center gap-2">
+                      <i
+                        className="inline-block h-2 w-2 rounded-full"
+                        style={{ background: cloneHue(cell.cloneId) }}
+                      />
+                      {cell.cloneId}
+                    </span>
+                  }
+                />
+                <Row k="Generation" v={String(cell.generation)} />
+                <Row k="Parent" v={cell.parentId === null ? "founder" : `#${cell.parentId}`} />
+                <div className="my-3 h-px bg-line" />
+                <Row k="Cycle time" v={`${fmt(cell.traits.cycleTime, 1)} h`} />
+                <Row k="Oxygen tolerance" v={fmt(cell.traits.oxygenTolerance)} />
+                <Row k="Uptake" v={fmt(cell.traits.uptake)} />
+                <Row k="Adhesion" v={fmt(cell.traits.adhesion)} />
+                <Row k="Motility" v={fmt(cell.traits.motility)} />
+                <div className="pt-2 text-[10px] text-mute">
+                  Age {fmt(cell.age, 1)} h · O₂ {fmt(cell.oxygen)}
+                </div>
+              </div>
+            ) : (
+              <p className="text-mute">Click a cell in the chamber.</p>
+            )}
+          </section>
+
+          {cell && (
+            <section>
+              <h2 className="mb-2 text-[11px] tracking-[0.22em] text-mute">MUTATIONS</h2>
+              {cell.mutations.length === 0 ? (
+                <p className="text-mute">none — wild type</p>
+              ) : (
+                <ul className="space-y-1 text-[11px]">
+                  {cell.mutations.map((m, i) => (
+                    <li key={`${m.gene}-${i}`} className="tree-line">
+                      {i === cell.mutations.length - 1 ? "└─" : "├─"} {mutationLine(m)}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          )}
+
+          <section>
+            <h2 className="mb-2 text-[11px] tracking-[0.22em] text-mute">LINEAGE</h2>
+            <p className="text-[11px]">{view.chain.length ? view.chain.join(" → ") : "—"}</p>
+            <div className="mt-3 flex gap-2">
+              <button className="btn" disabled={!cell} onClick={sim.traceLineage} type="button">
+                TRACE LINEAGE
+              </button>
+              {sim.lineageMode && (
+                <button className="btn" onClick={sim.clearLineage} type="button">
+                  CLEAR
+                </button>
+              )}
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <footer className="panel space-y-2 px-4 py-3">
+        <div className="flex items-center gap-3">
+          <span className="w-8 text-mute">0h</span>
+          <input
+            className="flex-1"
+            type="range"
+            min={0}
+            max={HORIZON_HOURS}
+            step={1}
+            value={Math.min(hours, HORIZON_HOURS)}
+            onChange={(e) => sim.seekHours(Number(e.target.value))}
+          />
+          <span className="w-12 text-right text-mute">{HORIZON_HOURS}h</span>
+        </div>
+        <div className="flex flex-wrap gap-x-8 gap-y-1 text-[11px] text-mute">
+          <span>
+            Cells: <em className="not-italic text-ink">{view.stats.cells.toLocaleString()}</em>
+          </span>
+          <span>
+            Mutant: <em className="not-italic text-mut">{fmt(view.stats.mutantPct, 0)}%</em>
+          </span>
+          <span>
+            Dead: <em className="not-italic text-ink">{fmt(view.stats.deadPct, 0)}%</em>
+          </span>
+          <span>
+            Clones: <em className="not-italic text-live">{view.stats.clones}</em>
+          </span>
+          <span className="ml-auto text-ink">{fmt(hours, 0)}h</span>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function Row({ k, v }: { k: string; v: ReactNode }) {
+  return (
+    <div className="grid grid-cols-[1fr_auto] gap-3 text-[11px]">
+      <span className="text-mute">{k}</span>
+      <span className="text-right">{v}</span>
+    </div>
+  );
+}

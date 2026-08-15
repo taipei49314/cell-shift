@@ -1,0 +1,35 @@
+{
+  "name": "cell-shift",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CELL//SHIFT — change cell rules, run a deterministic 3D tissue simulation, watch tumor-like structure form.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "check": "vitest run && tsc -b && vite build"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.4.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.180.0"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.4",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@types/three": "^0.180.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "tailwindcss": "^4.1.4",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.2",
+    "vitest": "^3.2.4"
+  }
+}
