@@ -1,0 +1,67 @@
+{
+  "name": "adhesion-sweep",
+  "factor": "rules.adhesion",
+  "hours": 120,
+  "rows": [
+    {
+      "label": "adhesion=0.15",
+      "hash": "6eb8a413",
+      "hours": 120,
+      "morphology": {
+        "r90": 3.373464597608718,
+        "necroticFrac": 0.46153846153846156,
+        "hypoxicFrac": 0.9285714285714286,
+        "coreO2": 0.08211381861105613,
+        "rimO2": 0.19633873390423,
+        "o2Drop": 0.11422491529317388,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "adhesion=0.4",
+      "hash": "828c424f",
+      "hours": 120,
+      "morphology": {
+        "r90": 2.46914906905002,
+        "necroticFrac": 0.45,
+        "hypoxicFrac": 1,
+        "coreO2": 0.01812434364163092,
+        "rimO2": 0.18830165242944413,
+        "o2Drop": 0.1701773087878132,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "adhesion=0.7",
+      "hash": "9c4bdca8",
+      "hours": 120,
+      "morphology": {
+        "r90": 2.247638378404634,
+        "necroticFrac": 0.631578947368421,
+        "hypoxicFrac": 0.8181818181818182,
+        "coreO2": 0,
+        "rimO2": 0.23252447688119743,
+        "o2Drop": 0.23252447688119743,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "adhesion=1.1",
+      "hash": "be310667",
+      "hours": 120,
+      "morphology": {
+        "r90": 2.1602475631845435,
+        "necroticFrac": 0.42424242424242425,
+        "hypoxicFrac": 0.9166666666666666,
+        "coreO2": 0,
+        "rimO2": 0.19830617017185262,
+        "o2Drop": 0.19830617017185262,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    }
+  ]
+}

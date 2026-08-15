@@ -1,0 +1,118 @@
+{
+  "name": "CELL//SHIFT",
+  "version": "1.0",
+  "hash": "57aa53b3",
+  "seed": 4821,
+  "hours": 240,
+  "env": {
+    "oxygen": 0.52,
+    "nutrient": 0.72,
+    "mutationRate": 0
+  },
+  "rules": {
+    "cycleHours": 14,
+    "deathRate": 0.035,
+    "adhesion": 0.92,
+    "motility": 0.035
+  },
+  "shift": null,
+  "morphology": {
+    "r90": 3.3162078370582297,
+    "necroticFrac": 0.6976744186046512,
+    "hypoxicFrac": 1,
+    "coreO2": 0.0805677574030298,
+    "rimO2": 0.13067959036209587,
+    "o2Drop": 0.05011183295906607,
+    "dominantClone": "C1",
+    "dominantShare": 1
+  },
+  "profile": [
+    {
+      "rMid": 0.189927251406204,
+      "n": 0,
+      "o2": 0,
+      "necrotic": 0,
+      "hypoxic": 0,
+      "cycling": 0
+    },
+    {
+      "rMid": 0.569781754218612,
+      "n": 0,
+      "o2": 0,
+      "necrotic": 0,
+      "hypoxic": 0,
+      "cycling": 0
+    },
+    {
+      "rMid": 0.94963625703102,
+      "n": 1,
+      "o2": 0.08767015095439619,
+      "necrotic": 1,
+      "hypoxic": 0,
+      "cycling": 0
+    },
+    {
+      "rMid": 1.329490759843428,
+      "n": 9,
+      "o2": 0.08996672152599046,
+      "necrotic": 0.8888888888888888,
+      "hypoxic": 0,
+      "cycling": 0
+    },
+    {
+      "rMid": 1.709345262655836,
+      "n": 12,
+      "o2": 0.09651699188669906,
+      "necrotic": 0.6666666666666666,
+      "hypoxic": 0.25,
+      "cycling": 0
+    },
+    {
+      "rMid": 2.089199765468244,
+      "n": 7,
+      "o2": 0.08639517129433805,
+      "necrotic": 1,
+      "hypoxic": 0,
+      "cycling": 0
+    },
+    {
+      "rMid": 2.4690542682806518,
+      "n": 3,
+      "o2": 0.11362548245265043,
+      "necrotic": 0.3333333333333333,
+      "hypoxic": 0.3333333333333333,
+      "cycling": 0
+    },
+    {
+      "rMid": 2.84890877109306,
+      "n": 6,
+      "o2": 0.10031586597977804,
+      "necrotic": 0.5,
+      "hypoxic": 0.5,
+      "cycling": 0
+    },
+    {
+      "rMid": 3.228763273905468,
+      "n": 2,
+      "o2": 0.11546321248742328,
+      "necrotic": 0,
+      "hypoxic": 1,
+      "cycling": 0
+    },
+    {
+      "rMid": 3.6086177767178755,
+      "n": 2,
+      "o2": 0.13285002313985952,
+      "necrotic": 0.5,
+      "hypoxic": 0,
+      "cycling": 0
+    }
+  ],
+  "cloneShares": [
+    {
+      "cloneId": "C1",
+      "n": 9,
+      "share": 1
+    }
+  ]
+}

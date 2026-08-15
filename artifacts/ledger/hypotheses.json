@@ -1,0 +1,23 @@
+[
+  {
+    "id": "H-core",
+    "verdict": "PASS",
+    "hours": 240,
+    "treatmentHash": "57aa53b3",
+    "notes": "Hypoxic spheroid · 4821 · 240 h forms an inward O₂ drop and a necrotic core."
+  },
+  {
+    "id": "H-adhesion",
+    "verdict": "PASS",
+    "hours": 160,
+    "treatmentHash": "6eb8a413",
+    "notes": "Same seed, lower adhesion produces a larger r90 than high adhesion."
+  },
+  {
+    "id": "H-intact-no-core",
+    "verdict": "PASS",
+    "hours": 240,
+    "treatmentHash": "d107cba6",
+    "notes": "Intact protocol at 240 h has a smaller necrotic fraction than Hypoxic spheroid."
+  }
+]

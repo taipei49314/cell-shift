@@ -306,6 +306,35 @@ export function App() {
           <button className="btn" onClick={() => sim.compare("adhesion")} type="button">
             VS ADHESION
           </button>
+          <button
+            className="btn"
+            onClick={() => {
+              const receipt = sim.exportReceipt();
+              const blob = new Blob([JSON.stringify(receipt, null, 2)], { type: "application/json" });
+              const a = document.createElement("a");
+              a.href = URL.createObjectURL(blob);
+              a.download = `cell-shift-${receipt.hash}-${receipt.hours}h.json`;
+              a.click();
+              URL.revokeObjectURL(a.href);
+            }}
+            type="button"
+          >
+            EXPORT RECEIPT
+          </button>
+          <label className="btn">
+            LOAD
+            <input
+              accept="application/json"
+              className="hidden"
+              type="file"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                e.target.value = "";
+                if (!file) return;
+                void file.text().then((text) => sim.loadReceipt(JSON.parse(text)));
+              }}
+            />
+          </label>
           {sim.contrast && (
             <span className="text-[10px] text-mute">
               {sim.contrast.label}: r90 {fmt(sim.contrast.morphology.r90, 2)} · necrotic{" "}

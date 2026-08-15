@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { experimentHash, PRESETS, type ExperimentSpec } from "../sim/experiment";
+import { issueReceipt, parseReceipt, replayReceipt, type Receipt } from "../sim/receipt";
 import { lineageChain, lineageIds } from "../sim/lineage";
 import { measure, radialProfile } from "../sim/morphology";
 import { effectiveTraits, emptyShift, shiftActive } from "../sim/shift";
@@ -202,6 +203,37 @@ export function useSimulation() {
     [armed, seed],
   );
 
+  const exportReceipt = useCallback((): Receipt => {
+    return issueReceipt(worldRef.current, {
+      name: "live",
+      seed,
+      env: envRef.current,
+      rules: rulesRef.current,
+      shift: armed,
+    });
+  }, [armed, seed]);
+
+  const loadReceipt = useCallback((raw: unknown) => {
+    const receipt = parseReceipt(raw);
+    const world = replayReceipt(receipt);
+    setSeed(receipt.seed);
+    setEnv(receipt.env);
+    setRules(receipt.rules);
+    setShift(receipt.shift ?? emptyShift("C1"));
+    envRef.current = receipt.env;
+    rulesRef.current = receipt.rules;
+    worldRef.current = world;
+    setLineageMode(false);
+    setLineageSet(new Set());
+    setSelectedId(null);
+    selectedRef.current = null;
+    setRunning(false);
+    setContrast(null);
+    setView(
+      snapshot(world, null, receipt.seed, receipt.env, receipt.rules, receipt.shift),
+    );
+  }, []);
+
   useEffect(() => {
     applyLiveParams();
     publish();
@@ -258,5 +290,7 @@ export function useSimulation() {
     clearLineage,
     seekHours,
     compare,
+    exportReceipt,
+    loadReceipt,
   };
 }

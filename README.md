@@ -25,6 +25,14 @@ npm run dev
 
 Then open the URL Vite prints (default `http://localhost:5173`).
 
+Headless (no UI, writes a receipt):
+
+```bash
+npm run chamber -- run hypoxic 240
+npm run chamber -- campaign adhesion
+npm run chamber -- ledger
+```
+
 ## Loop
 
 1. Set **Environment** (oxygen, nutrient, mutation rate) and **Cell rules**

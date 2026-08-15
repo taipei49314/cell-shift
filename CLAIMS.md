@@ -13,6 +13,8 @@ not calibrated to wet-lab or clinical data, and not a medical device.
 | SHIFT on C1 does not write into a new mutant clone's traits | Measured by `npm test` |
 | Faster C1 cycle raises C1 share vs unshifted C2 (same seed) | Measured by `npm test` |
 | Timeline seek restores a recorded 6 h frame; does not replay from t=0 | Measured by `npm test` |
+| A receipt of seed+spec+hours replays to the same r90 / core O₂ / necrotic fraction | Measured by `npm test` |
+| Pre-registered hypotheses H-core, H-adhesion, H-intact-no-core currently PASS | Measured by `npm test` — chamber geometry only |
 | Mutant clones can expand if trait deltas confer a fitness advantage in this chamber | Observable; not a claim about any real driver gene |
 | This represents a specific cancer, patient, therapy, or PhysiCell result | **Not claimed** |
 | Parameters are physiologically accurate | **Not claimed** |

@@ -47,4 +47,5 @@ Each answer is a number from the current world, not a biological claim.
 ## Out of scope
 
 Calibration to wet-lab or PhysiCell numbers. Named cancers. Therapy. Immune or vascular agents.
-3D showcase is specified in [LANDING.md](LANDING.md) as L3, after the research loop and the receipt.
+3D showcase is specified in [LANDING.md](LANDING.md) as L3 and is closed until a human opens it.
+Unattended depth: [DEPTH.md](DEPTH.md).

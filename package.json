@@ -9,7 +9,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "check": "vitest run && tsc -b && vite build"
+    "check": "vitest run && tsc -b && vite build",
+    "chamber": "vite-node scripts/chamber.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.6",
