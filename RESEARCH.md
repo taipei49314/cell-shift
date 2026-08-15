@@ -33,6 +33,10 @@ Each answer is a number from the current world, not a biological claim.
 - **Hypoxic spheroid** · seed 4821 · 240 h · `core O₂ < rim O₂` and necrotic fraction > 0
 - **Hypoxic spheroid multi-seed** · seeds 4821, 7, 21, 99, 2026 · 240 h · every listed seed has `core O₂ < rim O₂` (fail-closed; do not drop a failing seed)
 - **Adhesion** · same seed, only adhesion changes · low adhesion r90 > high adhesion r90
+- **Adhesion multi-seed** · same contrast · 160 h · 4/5 hold; seed 99 fails (table fail-closed; do not drop)
+- **Invasive vs Intact** · seeds 4821, 7, 21, 99, 2026 · 160 h · every listed seed has Invasive r90 > Intact r90
+- **Oxygen endpoints** · hypoxic rules · seed 4821 · 160 h · necrotic fraction at env O₂ 0.4 > at 0.9
+- **SHIFT cycle multi-seed** · C1 `cycle_rate +` vs unshifted C2 · 90 h · 4/5 hold; seed 99 fails (table fail-closed; do not drop)
 - Same seed + same spec → same tissue
 - SHIFT C1 `cycle_rate +` vs unshifted C2 → C1 share rises
 - Seek to a recorded hour restores that frame (no replay from t=0)

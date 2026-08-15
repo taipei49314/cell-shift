@@ -9,6 +9,9 @@ not calibrated to wet-lab or clinical data, and not a medical device.
 | Protocol **Hypoxic spheroid** (seed 4821, 240 h): mean core O₂ < mean rim O₂, necrotic fraction > 0 | Measured by `npm test` — chamber geometry, not histopathology |
 | Protocol **Hypoxic spheroid** (seeds 4821, 7, 21, 99, 2026, 240 h): mean core O₂ < mean rim O₂ on every listed seed | Measured by `npm test` — fail-closed; chamber geometry, not histopathology |
 | Same seed, lower adhesion → larger r90 | Measured by `npm test` |
+| Same adhesion contrast (0.15 vs 1.1, 160 h) on seeds 4821, 7, 21, 99, 2026: low r90 > high r90 on 4/5; seed 99 fails | Measured by `npm test` — table fail-closed; do not drop a failing seed |
+| Protocol **Invasive** vs **Intact** (seeds 4821, 7, 21, 99, 2026, 160 h): Invasive r90 > Intact r90 on every listed seed | Measured by `npm test` — fail-closed; chamber geometry, not invasion biology |
+| Same seed 4821, hypoxic rules, env O₂ 0.4 vs 0.9 (160 h): necrotic fraction is larger at 0.4 | Measured by `npm test` — one-factor chamber geometry |
 | Experiment hash is a function of seed + env + rules + SHIFT | Measured by `npm test` |
 | Same seed + same SHIFT produce the same tissue | Measured by `npm test` |
 | SHIFT on C1 does not write into a new mutant clone's traits | Measured by `npm test` |

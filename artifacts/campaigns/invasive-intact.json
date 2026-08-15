@@ -1,0 +1,196 @@
+{
+  "name": "invasive-intact",
+  "question": "shape",
+  "criterion": "Invasive r90 > Intact r90",
+  "hours": 160,
+  "seeds": [
+    4821,
+    7,
+    21,
+    99,
+    2026
+  ],
+  "held": 5,
+  "rows": [
+    {
+      "seed": 4821,
+      "hold": true,
+      "treatmentScore": 2.113890609164732,
+      "controlScore": 2.0594651601199603,
+      "treatment": {
+        "label": "Invasive",
+        "hash": "f3027851",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.113890609164732,
+          "necroticFrac": 0.47058823529411764,
+          "hypoxicFrac": 0.9,
+          "coreO2": 0.08944657164501546,
+          "rimO2": 0.18840528835074263,
+          "o2Drop": 0.09895871670572717,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "Intact",
+        "hash": "d107cba6",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.0594651601199603,
+          "necroticFrac": 0.375,
+          "hypoxicFrac": 0.45454545454545453,
+          "coreO2": 0.09498757829570532,
+          "rimO2": 0.29415697634689003,
+          "o2Drop": 0.19916939805118472,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    },
+    {
+      "seed": 7,
+      "hold": true,
+      "treatmentScore": 2.9889179903856955,
+      "controlScore": 2.224620006121123,
+      "treatment": {
+        "label": "Invasive",
+        "hash": "e4cb26ef",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.9889179903856955,
+          "necroticFrac": 0.30303030303030304,
+          "hypoxicFrac": 0.9090909090909091,
+          "coreO2": 0.08629355068370323,
+          "rimO2": 0.20384583913240764,
+          "o2Drop": 0.11755228844870441,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "Intact",
+        "hash": "a3769268",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.224620006121123,
+          "necroticFrac": 0.4,
+          "hypoxicFrac": 0.6363636363636364,
+          "coreO2": 0.09721294057599866,
+          "rimO2": 0.28504050688840066,
+          "o2Drop": 0.187827566312402,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    },
+    {
+      "seed": 21,
+      "hold": true,
+      "treatmentScore": 3.972560289046718,
+      "controlScore": 2.208387437859897,
+      "treatment": {
+        "label": "Invasive",
+        "hash": "e3a8cd25",
+        "hours": 160,
+        "morphology": {
+          "r90": 3.972560289046718,
+          "necroticFrac": 0.3333333333333333,
+          "hypoxicFrac": 0.8333333333333334,
+          "coreO2": 0.1276273835438124,
+          "rimO2": 0.18410924767486855,
+          "o2Drop": 0.05648186413105616,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "Intact",
+        "hash": "f93553e2",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.208387437859897,
+          "necroticFrac": 0.375,
+          "hypoxicFrac": 0.75,
+          "coreO2": 0,
+          "rimO2": 0.25082095147665406,
+          "o2Drop": 0.25082095147665406,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    },
+    {
+      "seed": 99,
+      "hold": true,
+      "treatmentScore": 2.618286880966508,
+      "controlScore": 1.8524133721395797,
+      "treatment": {
+        "label": "Invasive",
+        "hash": "912b17ee",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.618286880966508,
+          "necroticFrac": 0.42424242424242425,
+          "hypoxicFrac": 0.8,
+          "coreO2": 0.09618024949382406,
+          "rimO2": 0.26097027340299134,
+          "o2Drop": 0.16479002390916728,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "Intact",
+        "hash": "bd607c27",
+        "hours": 160,
+        "morphology": {
+          "r90": 1.8524133721395797,
+          "necroticFrac": 0.3333333333333333,
+          "hypoxicFrac": 0.6666666666666666,
+          "coreO2": 0,
+          "rimO2": 0.27874501525306367,
+          "o2Drop": 0.27874501525306367,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    },
+    {
+      "seed": 2026,
+      "hold": true,
+      "treatmentScore": 2.9470961781631324,
+      "controlScore": 2.3013668524612134,
+      "treatment": {
+        "label": "Invasive",
+        "hash": "39467f7a",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.9470961781631324,
+          "necroticFrac": 0.4117647058823529,
+          "hypoxicFrac": 0.375,
+          "coreO2": 0.07945002813651103,
+          "rimO2": 0.27767068395958827,
+          "o2Drop": 0.19822065582307724,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "Intact",
+        "hash": "466765fb",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.3013668524612134,
+          "necroticFrac": 0.3793103448275862,
+          "hypoxicFrac": 0.8181818181818182,
+          "coreO2": 0.09185859705135903,
+          "rimO2": 0.2296187499124889,
+          "o2Drop": 0.13776015286112986,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "name": "oxygen-sweep",
+  "factor": "env.oxygen",
+  "hours": 160,
+  "rows": [
+    {
+      "label": "oxygen=0.4",
+      "hash": "5f97283e",
+      "hours": 160,
+      "morphology": {
+        "r90": 2.148483261299195,
+        "necroticFrac": 0.8947368421052632,
+        "hypoxicFrac": 1,
+        "coreO2": 0,
+        "rimO2": 0.15007654907710033,
+        "o2Drop": 0.15007654907710033,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "oxygen=0.52",
+      "hash": "57aa53b3",
+      "hours": 160,
+      "morphology": {
+        "r90": 3.2314665064009525,
+        "necroticFrac": 0.6896551724137931,
+        "hypoxicFrac": 1,
+        "coreO2": 0.08767015095439619,
+        "rimO2": 0.18757395136197666,
+        "o2Drop": 0.09990380040758047,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "oxygen=0.7",
+      "hash": "64a798a5",
+      "hours": 160,
+      "morphology": {
+        "r90": 2.8367669176379535,
+        "necroticFrac": 0.6944444444444444,
+        "hypoxicFrac": 0.625,
+        "coreO2": 0.07138299405700113,
+        "rimO2": 0.2614448366991263,
+        "o2Drop": 0.1900618426421252,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    },
+    {
+      "label": "oxygen=0.9",
+      "hash": "3c9c9c0f",
+      "hours": 160,
+      "morphology": {
+        "r90": 2.900982387351018,
+        "necroticFrac": 0.4716981132075472,
+        "hypoxicFrac": 0.875,
+        "coreO2": 0.06023410048787192,
+        "rimO2": 0.2082373215390237,
+        "o2Drop": 0.14800322105115177,
+        "dominantClone": "C1",
+        "dominantShare": 1
+      }
+    }
+  ]
+}
