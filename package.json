@@ -1,6 +1,6 @@
 {
   "name": "cell-shift",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "CELL//SHIFT — change cell rules, run a deterministic 3D tissue simulation, watch tumor-like structure form.",

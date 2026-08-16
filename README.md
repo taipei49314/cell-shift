@@ -28,7 +28,11 @@ npm test
 npm run dev
 ```
 
-Then open the URL Vite prints (default `http://localhost:5173`).
+Windows: double-click `開始艙室.bat`. It starts Vite and opens
+`http://127.0.0.1:5173/`. The chamber boots the Hypoxic spheroid protocol
+at 240 h.
+
+Then open the URL Vite prints (default `http://127.0.0.1:5173`).
 
 Headless (no UI, writes a receipt):
 

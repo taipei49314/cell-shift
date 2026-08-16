@@ -6,8 +6,6 @@ import { livingShares, measure, radialProfile, type CloneShare } from "../sim/mo
 import { effectiveTraits, emptyShift, shiftActive } from "../sim/shift";
 import { cloneSeries } from "../sim/snapshot";
 import {
-  DEFAULT_ENV,
-  DEFAULT_RULES,
   HORIZON_HOURS,
   type Cell,
   type CloneShift,
@@ -58,10 +56,15 @@ function snapshot(
   };
 }
 
+function bootHypoxic(): World {
+  const p = PRESETS.hypoxic;
+  return replayTo({ seed: p.seed, env: p.env, rules: p.rules, shift: null }, 240);
+}
+
 export function useSimulation() {
-  const [seed, setSeed] = useState(4821);
-  const [env, setEnv] = useState<EnvParams>(DEFAULT_ENV);
-  const [rules, setRules] = useState<RuleParams>(DEFAULT_RULES);
+  const [seed, setSeed] = useState(PRESETS.hypoxic.seed);
+  const [env, setEnv] = useState<EnvParams>(PRESETS.hypoxic.env);
+  const [rules, setRules] = useState<RuleParams>(PRESETS.hypoxic.rules);
   const [shift, setShift] = useState<CloneShift>(emptyShift("C1"));
   const [running, setRunning] = useState(false);
   const [speed, setSpeed] = useState<1 | 4 | 16>(1);
@@ -69,11 +72,17 @@ export function useSimulation() {
   const [lineageMode, setLineageMode] = useState(false);
   const [lineageSet, setLineageSet] = useState<Set<number>>(new Set());
   const [contrast, setContrast] = useState<Contrast | null>(null);
+  const worldRef = useRef<World>(bootHypoxic());
   const [view, setView] = useState<View>(() =>
-    snapshot(createWorld({ seed: 4821 }), null, 4821, DEFAULT_ENV, DEFAULT_RULES, null),
+    snapshot(
+      worldRef.current,
+      null,
+      PRESETS.hypoxic.seed,
+      PRESETS.hypoxic.env,
+      PRESETS.hypoxic.rules,
+      null,
+    ),
   );
-
-  const worldRef = useRef<World>(createWorld({ seed: 4821 }));
   const selectedRef = useRef<number | null>(null);
   const envRef = useRef(env);
   const rulesRef = useRef(rules);
