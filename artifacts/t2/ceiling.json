@@ -1,0 +1,43 @@
+{
+  "hours": 160,
+  "rows": [
+    {
+      "seed": 4821,
+      "live14": 11,
+      "live26": 11,
+      "cells14": 32,
+      "cells26": 32
+    },
+    {
+      "seed": 7,
+      "live14": 11,
+      "live26": 11,
+      "cells14": 35,
+      "cells26": 35
+    },
+    {
+      "seed": 21,
+      "live14": 12,
+      "live26": 12,
+      "cells14": 32,
+      "cells26": 32
+    },
+    {
+      "seed": 99,
+      "live14": 9,
+      "live26": 9,
+      "cells14": 27,
+      "cells26": 27
+    },
+    {
+      "seed": 2026,
+      "live14": 11,
+      "live26": 11,
+      "cells14": 29,
+      "cells26": 29
+    }
+  ],
+  "verdict": {
+    "Hcap": "PASS"
+  }
+}

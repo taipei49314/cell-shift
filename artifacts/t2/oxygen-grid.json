@@ -1,0 +1,98 @@
+{
+  "seed": 4821,
+  "cells": [
+    {
+      "oxygen": 0.35,
+      "hours": 80,
+      "o2Drop": 0.21400371412139668,
+      "necroticFrac": 0.8666666666666667
+    },
+    {
+      "oxygen": 0.35,
+      "hours": 160,
+      "o2Drop": 0.22388087962139797,
+      "necroticFrac": 0.875
+    },
+    {
+      "oxygen": 0.35,
+      "hours": 240,
+      "o2Drop": 0.109418939780151,
+      "necroticFrac": 0.7894736842105263
+    },
+    {
+      "oxygen": 0.45,
+      "hours": 80,
+      "o2Drop": 0.1490045922726991,
+      "necroticFrac": 0.6666666666666666
+    },
+    {
+      "oxygen": 0.45,
+      "hours": 160,
+      "o2Drop": 0.2018244171981,
+      "necroticFrac": 0.8636363636363636
+    },
+    {
+      "oxygen": 0.45,
+      "hours": 240,
+      "o2Drop": 0.13596334814372665,
+      "necroticFrac": 0.8148148148148148
+    },
+    {
+      "oxygen": 0.55,
+      "hours": 80,
+      "o2Drop": 0.13033438436481823,
+      "necroticFrac": 0.5789473684210527
+    },
+    {
+      "oxygen": 0.55,
+      "hours": 160,
+      "o2Drop": 0.13318627811317285,
+      "necroticFrac": 0.68
+    },
+    {
+      "oxygen": 0.55,
+      "hours": 240,
+      "o2Drop": 0.1401591924398364,
+      "necroticFrac": 0.7058823529411765
+    },
+    {
+      "oxygen": 0.7,
+      "hours": 80,
+      "o2Drop": 0.19519269754491558,
+      "necroticFrac": 0.45454545454545453
+    },
+    {
+      "oxygen": 0.7,
+      "hours": 160,
+      "o2Drop": 0.1900618426421252,
+      "necroticFrac": 0.6944444444444444
+    },
+    {
+      "oxygen": 0.7,
+      "hours": 240,
+      "o2Drop": 0.15975819353473822,
+      "necroticFrac": 0.7115384615384616
+    },
+    {
+      "oxygen": 0.9,
+      "hours": 80,
+      "o2Drop": 0.24013352268384683,
+      "necroticFrac": 0.3448275862068966
+    },
+    {
+      "oxygen": 0.9,
+      "hours": 160,
+      "o2Drop": 0.14800322105115177,
+      "necroticFrac": 0.4716981132075472
+    },
+    {
+      "oxygen": 0.9,
+      "hours": 240,
+      "o2Drop": 0.15435109712102063,
+      "necroticFrac": 0.5753424657534246
+    }
+  ],
+  "verdict": {
+    "Hox-mid": "UNKNOWN"
+  }
+}

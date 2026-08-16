@@ -121,6 +121,22 @@ if (cmd === "run") {
     const path = write("artifacts/campaigns/adhesion-sweep.json", camp);
     console.log(path);
   }
+} else if (cmd === "t2-atlas") {
+  const { atlasSummary, buildT2Atlas } = await import("../src/sim/t2");
+  const atlas = buildT2Atlas();
+  const path = write("artifacts/t2/atlas-32.json", atlas);
+  console.log(path);
+  console.log(JSON.stringify(atlasSummary(atlas), null, 2));
+} else if (cmd === "t2-close") {
+  const { closeT2 } = await import("../src/sim/t2-close");
+  const out = closeT2();
+  write("artifacts/t2/seed-99.json", out.autopsy99);
+  write("artifacts/t2/seed-2026.json", out.autopsy2026);
+  write("artifacts/t2/oxygen-grid.json", out.oxygen);
+  write("artifacts/t2/ceiling.json", out.ceiling);
+  const vpath = write("artifacts/t2/verdicts.json", out.verdicts);
+  console.log(vpath);
+  console.log(JSON.stringify(out.verdicts, null, 2));
 } else if (cmd === "ledger") {
   const runs = HYPOTHESES.map(runHypothesis);
   const path = write("artifacts/ledger/hypotheses.json", runs);
@@ -133,4 +149,6 @@ if (cmd === "run") {
     "chamber campaign adhesion|hypoxic-seeds|adhesion-seeds|invasive-intact|oxygen|oxygen-seeds|motility-seeds|shift-seeds",
   );
   console.log("chamber ledger");
+  console.log("chamber t2-atlas");
+  console.log("chamber t2-close");
 }

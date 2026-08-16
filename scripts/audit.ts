@@ -61,6 +61,17 @@ const copies: [string, string][] = [
 ];
 for (const [from, to] of copies) copyFileSync(resolve(from), join(outDir, to));
 
+mkdirSync(join(outDir, "t2"), { recursive: true });
+try {
+  for (const name of readdirSync(resolve("artifacts/t2"))) {
+    if (name.endsWith(".json")) {
+      copyFileSync(resolve("artifacts/t2", name), join(outDir, "t2", name));
+    }
+  }
+} catch {
+  /* T2 artifacts optional on older checkouts */
+}
+
 mkdirSync(join(outDir, "campaigns"), { recursive: true });
 for (const name of readdirSync(resolve("artifacts/campaigns"))) {
   if (name.endsWith(".json")) {

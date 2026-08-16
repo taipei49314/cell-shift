@@ -1,0 +1,44 @@
+{
+  "seed": 2026,
+  "pair": {
+    "high": {
+      "r90": 2.363299017379277,
+      "r10": 1.0739337426568958,
+      "r50": 2.045774294396575,
+      "necroticFrac": 0.6304347826086957,
+      "hypoxicFrac": 0.8181818181818182,
+      "hypoxicShell": 0.6666666666666666,
+      "coreO2": 0.0667826752640707,
+      "rimO2": 0.24344715833243277,
+      "o2Drop": 0.17666448306836208,
+      "asphericity": 0.3812328963406451,
+      "roughness": 0.5455785599878054,
+      "cloneShannon": 0,
+      "sameCloneNN": 0,
+      "dominantClone": "C1",
+      "dominantShare": 1
+    },
+    "low": {
+      "r90": 2.597540527060486,
+      "r10": 1.3046822048112974,
+      "r50": 2.1314008165212455,
+      "necroticFrac": 0.5531914893617021,
+      "hypoxicFrac": 0.9230769230769231,
+      "hypoxicShell": 1,
+      "coreO2": 0.07561935783131378,
+      "rimO2": 0.1985480777661028,
+      "o2Drop": 0.12292871993478903,
+      "asphericity": 0.25379021143308284,
+      "roughness": 0.4977240234677899,
+      "cloneShannon": 0,
+      "sameCloneNN": 0,
+      "dominantClone": "C1",
+      "dominantShare": 1
+    },
+    "liveHigh": 11,
+    "liveLow": 13
+  },
+  "verdicts": {
+    "H2026-pack": "PASS"
+  }
+}

@@ -27,6 +27,11 @@ not calibrated to wet-lab or clinical data, and not a medical device.
 | Morphology includes r10/r50/r90, hypoxic shell, asphericity, roughness; Hypoxic shell > 0; Invasive r90 > Intact while roughness does not separate them (seed 4821, 160 h) | Measured by `npm test` |
 | Hypoxic spheroid 4821 / 240 h midplane SVG contains necrotic core and rim state colors | Measured by `npm test` + `npm run figure` — chamber figure, not histopathology |
 | Mutant clones can expand if trait deltas confer a fitness advantage in this chamber | Observable; not a claim about any real driver gene |
+| T2 atlas seeds 0–31: adhesion 21/32, motility 18/32, SHIFT-cycle 21/32 hold; fail seeds retained | Measured by `artifacts/t2/atlas-32.json` + `npm test` |
+| T2 H99-early PASS (seed 99 adhesion already reversed by 80 h); H99-smalln UNKNOWN (live=11 at 160 h) | Measured by `artifacts/t2/seed-99.json` |
+| T2 H2026-pack PASS (high motility r90 smaller with necroticFrac not lower) | Measured by `artifacts/t2/seed-2026.json` |
+| T2 Hox-mid UNKNOWN (mid-O₂ o2Drop is not uniformly below endpoints) | Measured by `artifacts/t2/oxygen-grid.json` |
+| T2 Hcap PASS (contactLimit=14, 160 h, live ∈ [6,20] on the five locked seeds) | Measured by `artifacts/t2/ceiling.json` |
 | This represents a specific cancer, patient, therapy, or PhysiCell result | **Not claimed** |
 | Parameters are physiologically accurate | **Not claimed** |
 
