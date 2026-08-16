@@ -1,6 +1,6 @@
 # Depth watch (unattended)
 
-L3 (剖切、培養皿、著色秀) is **closed**. Do not open it.
+L3 (剖切、培養皿、著色秀) was opened by a human. Unattended watch remains off unless re-armed. Do not start a watch from this file.
 
 This file is the contract for unmanned deepening. An agent that cannot point at a line here must stop.
 

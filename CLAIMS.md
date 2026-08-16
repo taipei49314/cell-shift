@@ -25,6 +25,7 @@ not calibrated to wet-lab or clinical data, and not a medical device.
 | 16³ cannot resolve Hypoxic core < rim at 80 h; 24³ and 32³ can; 24 vs 32 r90 relative gap < 35% | Measured by `npm test` — 24³ is the default, not a continuum limit |
 | cycle_rate-only mutants are born from a parent and have a shorter cycle than C1 | Measured by `npm test` — division-born clones, not relabeled founders |
 | Morphology includes r10/r50/r90, hypoxic shell, asphericity, roughness; Hypoxic shell > 0; Invasive r90 > Intact while roughness does not separate them (seed 4821, 160 h) | Measured by `npm test` |
+| Hypoxic spheroid 4821 / 240 h midplane SVG contains necrotic core and rim state colors | Measured by `npm test` + `npm run figure` — chamber figure, not histopathology |
 | Mutant clones can expand if trait deltas confer a fitness advantage in this chamber | Observable; not a claim about any real driver gene |
 | This represents a specific cancer, patient, therapy, or PhysiCell result | **Not claimed** |
 | Parameters are physiologically accurate | **Not claimed** |

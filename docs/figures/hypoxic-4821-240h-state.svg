@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="560" viewBox="0 0 720 560">
+  <rect width="100%" height="100%" fill="#07090b"/>
+  <text x="56" y="28" fill="#c8d6d1" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="14" letter-spacing="2">CELL//SHIFT</text>
+  <text x="56" y="48" fill="#6d7f79" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11">Hypoxic spheroid · seed 4821 · 240h · clip z=0 · state</text>
+  <text x="664" y="28" text-anchor="end" fill="#7dffc3" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12">RIM</text>
+  <text x="360" y="288" text-anchor="middle" fill="#6d7f79" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11">CORE</text>
+  <g font-family="IBM Plex Mono, ui-monospace, monospace"><circle cx="465.3" cy="378.9" r="22.75" fill="#2a2428" />
+<circle cx="252.4" cy="370.1" r="22.75" fill="#2a2428" />
+<circle cx="227.7" cy="311.6" r="22.75" fill="#6a4038" />
+<circle cx="356.0" cy="202.1" r="22.75" fill="#2a2428" />
+<circle cx="322.1" cy="126.2" r="22.75" fill="#2a2428" />
+<circle cx="374.5" cy="180.4" r="22.75" fill="#2a2428" />
+<circle cx="384.3" cy="382.6" r="22.75" fill="#2a2428" />
+<circle cx="435.6" cy="361.9" r="22.75" fill="#2a2428" />
+<circle cx="304.6" cy="202.9" r="22.75" fill="#2a2428" />
+<circle cx="391.1" cy="104.6" r="22.75" fill="#2a2428" />
+<circle cx="253.9" cy="377.2" r="22.75" fill="#2a2428" />
+<circle cx="524.7" cy="348.2" r="22.75" fill="#2a2428" />
+<circle cx="332.4" cy="156.1" r="22.75" fill="#2a2428" />
+<circle cx="198.1" cy="360.1" r="22.75" fill="#2a2428" />
+<circle cx="193.0" cy="433.1" r="36.69" fill="#7a5ea8" />
+<circle cx="554.7" cy="287.3" r="22.75" fill="#6a4038" />
+<circle cx="256.9" cy="422.8" r="36.69" fill="#7a5ea8" />
+<circle cx="584.0" cy="346.6" r="36.69" fill="#7a5ea8" />
+<circle cx="136.0" cy="471.4" r="36.69" fill="#7a5ea8" />
+<circle cx="306.7" cy="422.4" r="22.75" fill="#2a2428" /></g>
+  <g font-family="IBM Plex Mono, ui-monospace, monospace"><rect x="56" y="492" width="10" height="10" fill="#2a2428" /><text x="72" y="501" fill="#c8d6d1" font-size="11">NECROTIC · core</text><rect x="56" y="508" width="10" height="10" fill="#7a5ea8" /><text x="72" y="517" fill="#c8d6d1" font-size="11">HYPOXIC · shell</text><rect x="56" y="524" width="10" height="10" fill="#e8a0b4" /><text x="72" y="533" fill="#c8d6d1" font-size="11">CYCLING · rim</text></g>
+  <text x="664" y="544" text-anchor="end" fill="#6d7f79" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10">core O₂ 0.08 · rim O₂ 0.13 · necrotic 70% · not a biological model</text>
+</svg>

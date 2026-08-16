@@ -1,7 +1,9 @@
-import type { ReactNode } from "react";
-import { GENES, HORIZON_HOURS } from "./sim/types";
+import { useState, type ReactNode } from "react";
+import { DEFAULT_CONFIG, GENES, HORIZON_HOURS } from "./sim/types";
+import { CloneLegend } from "./ui/CloneLegend";
 import { CloneSeries } from "./ui/CloneSeries";
 import { cloneHue, fmt, mutationLine, signedPct } from "./ui/format";
+import type { ColorMode } from "./ui/palette";
 import { RadialProfile } from "./ui/RadialProfile";
 import { TissueChamber } from "./ui/TissueChamber";
 import { useSimulation } from "./ui/useSimulation";
@@ -37,6 +39,8 @@ export function App() {
   const { view } = sim;
   const cell = view.selected;
   const hours = view.stats.hours;
+  const [colorMode, setColorMode] = useState<ColorMode>("state");
+  const [clip, setClip] = useState(0);
 
   return (
     <div className="flex h-full flex-col text-[12px]">
@@ -197,14 +201,47 @@ export function App() {
         </aside>
 
         <main className="relative min-h-0 bg-void">
-          <div className="pointer-events-none absolute left-4 top-4 z-10 text-[10px] tracking-[0.2em] text-mute">
-            3D TISSUE
+          <div className="pointer-events-none absolute left-4 top-4 z-10 space-y-3">
+            <div className="text-[10px] tracking-[0.2em] text-mute">3D TISSUE</div>
+            <div className="pointer-events-auto flex flex-wrap gap-1">
+              {(["clone", "state", "oxygen", "lineage"] as const).map((mode) => (
+                <button
+                  className="btn"
+                  data-on={colorMode === mode}
+                  key={mode}
+                  onClick={() => setColorMode(mode)}
+                  type="button"
+                >
+                  {mode === "oxygen" ? "O₂" : mode.toUpperCase()}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="absolute bottom-4 left-4 right-4 z-10">
+            <label className="flex items-center gap-3 text-[10px] text-mute">
+              clip
+              <input
+                className="flex-1"
+                type="range"
+                min={-DEFAULT_CONFIG.chamberRadius}
+                max={DEFAULT_CONFIG.chamberRadius}
+                step={0.1}
+                value={clip}
+                onChange={(e) => setClip(Number(e.target.value))}
+              />
+              <span className="w-10 text-right">{clip.toFixed(1)}</span>
+            </label>
+          </div>
+          <div className="pointer-events-none absolute right-4 top-4 z-10 w-36">
+            <div className="text-[10px] tracking-[0.2em] text-mute">CLONES</div>
+            <CloneLegend shares={view.shares} />
           </div>
           <TissueChamber
             worldRef={sim.worldRef}
             selectedId={sim.selectedId}
-            lineageMode={sim.lineageMode}
             lineageSet={sim.lineageSet}
+            colorMode={colorMode === "lineage" || sim.lineageMode ? "lineage" : colorMode}
+            clip={clip}
             onSelect={sim.select}
           />
         </main>

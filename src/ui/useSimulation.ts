@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { experimentHash, PRESETS, type ExperimentSpec } from "../sim/experiment";
 import { issueReceipt, parseReceipt, replayReceipt, type Receipt } from "../sim/receipt";
 import { lineageChain, lineageIds } from "../sim/lineage";
-import { measure, radialProfile } from "../sim/morphology";
+import { livingShares, measure, radialProfile, type CloneShare } from "../sim/morphology";
 import { effectiveTraits, emptyShift, shiftActive } from "../sim/shift";
 import { cloneSeries } from "../sim/snapshot";
 import {
@@ -33,6 +33,7 @@ export type View = {
   effective: Cell["traits"] | null;
   chain: string[];
   series: { hours: number; shares: { cloneId: string; share: number }[] }[];
+  shares: CloneShare[];
 };
 
 function snapshot(
@@ -53,6 +54,7 @@ function snapshot(
     effective: selected ? effectiveTraits(selected, world.config.shift) : null,
     chain: selected ? lineageChain(world.cells, selected.id) : [],
     series: cloneSeries(world.frames),
+    shares: livingShares(world.cells),
   };
 }
 
