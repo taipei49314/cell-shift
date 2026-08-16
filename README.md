@@ -1,5 +1,7 @@
 # CELL//SHIFT
 
+[![ci](https://github.com/taipei49314/cell-shift/actions/workflows/ci.yml/badge.svg)](https://github.com/taipei49314/cell-shift/actions/workflows/ci.yml)
+
 Change the rules a cell lives by. Run the chamber. Watch a tumor-like mass form
 from geometry, not from a story.
 
