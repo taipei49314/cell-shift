@@ -5,6 +5,8 @@ import {
   HYPOXIC_MULTI_SEEDS,
   hypoxicMultiseed,
   invasiveVsIntact,
+  motilityMultiseed,
+  oxygenEndpointsMultiseed,
   oxygenSweep,
   shiftCycleMultiseed,
 } from "./campaign";
@@ -83,6 +85,26 @@ describe("campaigns", () => {
     expect(table.find((r) => r.seed === 99)?.hold).toBe(false);
   });
 
+  it("motility multi-seed reports every listed seed; 4/5 hold; seed 2026 stays", () => {
+    expect([...HYPOXIC_MULTI_SEEDS]).toEqual([4821, 7, 21, 99, 2026]);
+    const camp = motilityMultiseed(160, HYPOXIC_MULTI_SEEDS);
+    expect(camp.seeds).toEqual([...HYPOXIC_MULTI_SEEDS]);
+    expect(camp.rows).toHaveLength(HYPOXIC_MULTI_SEEDS.length);
+    const table = camp.rows.map((row) => ({
+      seed: row.seed,
+      high: row.treatmentScore,
+      low: row.controlScore,
+      hold: row.hold,
+    }));
+    expect(table.map((r) => r.seed)).toEqual([4821, 7, 21, 99, 2026]);
+    expect(
+      table.map((r) => r.hold),
+      `motility r90 table=${JSON.stringify(table)}`,
+    ).toEqual([true, true, true, true, false]);
+    expect(camp.held).toBe(4);
+    expect(table.find((r) => r.seed === 2026)?.hold).toBe(false);
+  });
+
   it("Invasive r90 > Intact r90 on every listed seed", () => {
     expect([...HYPOXIC_MULTI_SEEDS]).toEqual([4821, 7, 21, 99, 2026]);
     const camp = invasiveVsIntact(160, HYPOXIC_MULTI_SEEDS);
@@ -114,6 +136,28 @@ describe("campaigns", () => {
     const lo = camp.rows[0]!.morphology.necroticFrac;
     const hi = camp.rows[3]!.morphology.necroticFrac;
     expect(lo, `oxygen 0.4 necrotic=${lo} vs 0.9 necrotic=${hi}`).toBeGreaterThan(hi);
+  });
+
+  it("oxygen endpoints multi-seed: necroticFrac at env O₂ 0.4 > 0.9 on every listed seed", () => {
+    expect([...HYPOXIC_MULTI_SEEDS]).toEqual([4821, 7, 21, 99, 2026]);
+    const camp = oxygenEndpointsMultiseed(160, HYPOXIC_MULTI_SEEDS);
+    expect(camp.seeds).toEqual([...HYPOXIC_MULTI_SEEDS]);
+    expect(camp.rows).toHaveLength(HYPOXIC_MULTI_SEEDS.length);
+    const table = camp.rows.map((row) => ({
+      seed: row.seed,
+      lo: row.treatmentScore,
+      hi: row.controlScore,
+      hold: row.hold,
+    }));
+    expect(table.map((r) => r.seed)).toEqual([4821, 7, 21, 99, 2026]);
+    const failed = table.filter((row) => !row.hold);
+    expect(
+      failed,
+      `oxygen 0.4 necrotic > 0.9 necrotic failed for seeds: ${failed
+        .map((row) => `${row.seed} (0.4=${row.lo} 0.9=${row.hi})`)
+        .join("; ")}. table=${JSON.stringify(table)}`,
+    ).toEqual([]);
+    expect(camp.held).toBe(5);
   });
 
   it("SHIFT cycle multi-seed reports every listed seed; 4/5 hold; seed 99 stays", () => {

@@ -34,6 +34,8 @@ npm run chamber -- campaign hypoxic-seeds
 npm run chamber -- campaign adhesion-seeds
 npm run chamber -- campaign invasive-intact
 npm run chamber -- campaign oxygen
+npm run chamber -- campaign oxygen-seeds
+npm run chamber -- campaign motility-seeds
 npm run chamber -- campaign shift-seeds
 npm run chamber -- ledger
 ```

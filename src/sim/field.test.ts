@@ -83,4 +83,15 @@ describe("morphology protocols", () => {
     const rLoose = measure(loose.cells).r90;
     expect(rLoose).toBeGreaterThan(rTight);
   });
+
+  it("same seed: high motility has larger r90 than low motility", () => {
+    const seed = 4821;
+    const env = { oxygen: 0.85, nutrient: 0.85, mutationRate: 0 };
+    const base = { cycleHours: 14, deathRate: 0.03, adhesion: 0.7 };
+    const slow = replayTo({ seed, env, rules: { ...base, motility: 0.03 } }, 160);
+    const fast = replayTo({ seed, env, rules: { ...base, motility: 0.22 } }, 160);
+    const rSlow = measure(slow.cells).r90;
+    const rFast = measure(fast.cells).r90;
+    expect(rFast).toBeGreaterThan(rSlow);
+  });
 });

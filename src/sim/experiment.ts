@@ -1,5 +1,13 @@
 import { shiftActive } from "./shift";
-import { DEFAULT_ENV, DEFAULT_RULES, GENES, type CloneShift, type EnvParams, type RuleParams } from "./types";
+import {
+  DEFAULT_ENV,
+  DEFAULT_RULES,
+  GENES,
+  type CloneShift,
+  type EnvParams,
+  type MutationGene,
+  type RuleParams,
+} from "./types";
 
 export type ExperimentSpec = {
   name: string;
@@ -7,6 +15,8 @@ export type ExperimentSpec = {
   env: EnvParams;
   rules: RuleParams;
   shift?: CloneShift | null;
+  fieldN?: number;
+  mutationPool?: MutationGene[];
 };
 
 function round(n: number, digits: number): number {
@@ -24,7 +34,9 @@ function shiftPayload(shift: CloneShift | null | undefined) {
   return { cloneId: shift.cloneId, deltas };
 }
 
-export function experimentPayload(spec: Pick<ExperimentSpec, "seed" | "env" | "rules" | "shift">): string {
+export function experimentPayload(
+  spec: Pick<ExperimentSpec, "seed" | "env" | "rules" | "shift" | "fieldN" | "mutationPool">,
+): string {
   return JSON.stringify({
     seed: spec.seed,
     env: {
@@ -39,6 +51,8 @@ export function experimentPayload(spec: Pick<ExperimentSpec, "seed" | "env" | "r
       motility: round(spec.rules.motility, 4),
     },
     shift: shiftPayload(spec.shift),
+    fieldN: spec.fieldN ?? 24,
+    mutationPool: [...(spec.mutationPool ?? GENES)].sort(),
   });
 }
 

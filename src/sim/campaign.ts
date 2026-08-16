@@ -29,7 +29,14 @@ export function runCampaign(
   const rows: CampaignRow[] = [];
   for (const item of specs) {
     const world = replayTo(
-      { seed: item.spec.seed, env: item.spec.env, rules: item.spec.rules, shift: item.spec.shift },
+      {
+        seed: item.spec.seed,
+        env: item.spec.env,
+        rules: item.spec.rules,
+        shift: item.spec.shift,
+        fieldN: item.spec.fieldN,
+        mutationPool: item.spec.mutationPool,
+      },
       hours,
     );
     rows.push({
@@ -182,6 +189,50 @@ export function adhesionMultiseed(
   );
 }
 
+const MOTILITY_ENV = { oxygen: 0.85, nutrient: 0.85, mutationRate: 0 };
+const MOTILITY_BASE = { cycleHours: 14, deathRate: 0.03, adhesion: 0.7 };
+
+/** Same seed, only motility changes. Report holds; do not drop a failing seed. */
+export function motilityMultiseed(
+  hours = 160,
+  seeds: readonly number[] = HYPOXIC_MULTI_SEEDS,
+): SeedHoldCampaign {
+  return seedHoldCampaign(
+    "motility-multiseed",
+    "shape",
+    "high motility r90 > low motility r90",
+    hours,
+    seeds,
+    (seed) => {
+      const treatment = rowFromSpec(
+        {
+          name: "high-motility",
+          seed,
+          env: MOTILITY_ENV,
+          rules: { ...MOTILITY_BASE, motility: 0.22 },
+        },
+        hours,
+      );
+      const control = rowFromSpec(
+        {
+          name: "low-motility",
+          seed,
+          env: MOTILITY_ENV,
+          rules: { ...MOTILITY_BASE, motility: 0.03 },
+        },
+        hours,
+      );
+      return {
+        hold: treatment.morphology.r90 > control.morphology.r90,
+        treatmentScore: treatment.morphology.r90,
+        controlScore: control.morphology.r90,
+        treatment,
+        control,
+      };
+    },
+  );
+}
+
 /** Invasive vs Intact r90 on the locked seed set. Shape class; two named protocols. */
 export function invasiveVsIntact(
   hours = 160,
@@ -218,6 +269,38 @@ export function oxygenSweep(seed = 4821, hours = 160): Campaign {
       label: `oxygen=${oxygen}`,
       spec: { ...proto, seed, env: { ...proto.env, oxygen } },
     })),
+  );
+}
+
+/** Same oxygen endpoints as the seed-4821 lock. Report holds; do not drop a failing seed. */
+export function oxygenEndpointsMultiseed(
+  hours = 160,
+  seeds: readonly number[] = HYPOXIC_MULTI_SEEDS,
+): SeedHoldCampaign {
+  const proto = PRESETS.hypoxic;
+  return seedHoldCampaign(
+    "oxygen-endpoints-multiseed",
+    "structure",
+    "env O₂ 0.4 necroticFrac > env O₂ 0.9 necroticFrac",
+    hours,
+    seeds,
+    (seed) => {
+      const treatment = rowFromSpec(
+        { ...proto, name: "oxygen-0.4", seed, env: { ...proto.env, oxygen: 0.4 } },
+        hours,
+      );
+      const control = rowFromSpec(
+        { ...proto, name: "oxygen-0.9", seed, env: { ...proto.env, oxygen: 0.9 } },
+        hours,
+      );
+      return {
+        hold: treatment.morphology.necroticFrac > control.morphology.necroticFrac,
+        treatmentScore: treatment.morphology.necroticFrac,
+        controlScore: control.morphology.necroticFrac,
+        treatment,
+        control,
+      };
+    },
   );
 }
 

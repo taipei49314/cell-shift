@@ -90,6 +90,8 @@ export function createWorld(partial: Partial<WorldConfig> = {}): World {
     env: { ...DEFAULT_CONFIG.env, ...partial.env },
     rules: { ...DEFAULT_CONFIG.rules, ...partial.rules },
     shift: partial.shift !== undefined ? partial.shift : DEFAULT_CONFIG.shift,
+    fieldN: partial.fieldN ?? DEFAULT_CONFIG.fieldN,
+    mutationPool: partial.mutationPool ?? DEFAULT_CONFIG.mutationPool,
   };
   const rng = new Rng(config.seed);
   const cells: Cell[] = [];
@@ -120,7 +122,7 @@ export function createWorld(partial: Partial<WorldConfig> = {}): World {
     spawnRules: { ...config.rules },
     rng,
     cells,
-    field: createField(config.chamberRadius, config.env.oxygen),
+    field: createField(config.chamberRadius, config.env.oxygen, config.fieldN),
     hours: 0,
     nextId: config.founders + 1,
     nextClone: 2,
@@ -138,7 +140,8 @@ function maybeMutate(world: World, parent: Cell): { traits: Traits; mutations: M
       cloneId: parent.cloneId,
     };
   }
-  const gene = world.rng.pick(GENES);
+  const pool = world.config.mutationPool.length ? world.config.mutationPool : GENES;
+  const gene = world.rng.pick(pool);
   const advantageous = gene === "cycle_rate" || gene === "hypoxia_tolerance" || gene === "apoptosis_threshold";
   const magnitude = world.rng.float(0.08, 0.24);
   const delta =

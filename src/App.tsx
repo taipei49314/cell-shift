@@ -354,6 +354,18 @@ export function App() {
             Necrotic: <em className="not-italic text-ink">{fmt(view.morphology.necroticFrac * 100, 0)}%</em>
           </span>
           <span>
+            Shell: <em className="not-italic text-ink">{fmt(view.morphology.hypoxicShell, 2)}</em>
+          </span>
+          <span>
+            Rough: <em className="not-italic text-ink">{fmt(view.morphology.roughness, 2)}</em>
+          </span>
+          <span>
+            Asph: <em className="not-italic text-ink">{fmt(view.morphology.asphericity, 2)}</em>
+          </span>
+          <span>
+            H: <em className="not-italic text-ink">{fmt(view.morphology.cloneShannon, 2)}</em>
+          </span>
+          <span>
             O₂ core/rim:{" "}
             <em className="not-italic text-ink">
               {fmt(view.morphology.coreO2)} / {fmt(view.morphology.rimO2)}

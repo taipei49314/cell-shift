@@ -7,6 +7,8 @@
  *   npx vite-node scripts/chamber.ts campaign adhesion-seeds
  *   npx vite-node scripts/chamber.ts campaign invasive-intact
  *   npx vite-node scripts/chamber.ts campaign oxygen
+ *   npx vite-node scripts/chamber.ts campaign oxygen-seeds
+ *   npx vite-node scripts/chamber.ts campaign motility-seeds
  *   npx vite-node scripts/chamber.ts campaign shift-seeds
  *   npx vite-node scripts/chamber.ts ledger
  */
@@ -17,6 +19,8 @@ import {
   adhesionSweep,
   hypoxicMultiseed,
   invasiveVsIntact,
+  motilityMultiseed,
+  oxygenEndpointsMultiseed,
   oxygenSweep,
   shiftCycleMultiseed,
 } from "../src/sim/campaign";
@@ -73,6 +77,14 @@ if (cmd === "run") {
     for (const row of camp.rows) {
       console.log(row.seed, "low", row.treatmentScore, "high", row.controlScore, row.hold ? "HOLD" : "FAIL");
     }
+  } else if (a === "motility-seeds" || a === "motility-multiseed") {
+    const camp = motilityMultiseed(160);
+    const path = write("artifacts/campaigns/motility-multiseed.json", camp);
+    console.log(path);
+    console.log(`held ${camp.held}/${camp.rows.length}`);
+    for (const row of camp.rows) {
+      console.log(row.seed, "high", row.treatmentScore, "low", row.controlScore, row.hold ? "HOLD" : "FAIL");
+    }
   } else if (a === "invasive-intact") {
     const camp = invasiveVsIntact(160);
     const path = write("artifacts/campaigns/invasive-intact.json", camp);
@@ -87,6 +99,14 @@ if (cmd === "run") {
     console.log(path);
     for (const row of camp.rows) {
       console.log(row.label, "necrotic", row.morphology.necroticFrac, "o2Drop", row.morphology.o2Drop);
+    }
+  } else if (a === "oxygen-seeds" || a === "oxygen-endpoints") {
+    const camp = oxygenEndpointsMultiseed(160);
+    const path = write("artifacts/campaigns/oxygen-endpoints-multiseed.json", camp);
+    console.log(path);
+    console.log(`held ${camp.held}/${camp.rows.length}`);
+    for (const row of camp.rows) {
+      console.log(row.seed, "o2=0.4", row.treatmentScore, "o2=0.9", row.controlScore, row.hold ? "HOLD" : "FAIL");
     }
   } else if (a === "shift-seeds" || a === "shift-cycle") {
     const camp = shiftCycleMultiseed(90);
@@ -109,6 +129,8 @@ if (cmd === "run") {
   if (runs.some((r) => r.verdict !== "PASS")) process.exit(2);
 } else {
   console.log("chamber run <intact|hypoxic|invasive> <hours>");
-  console.log("chamber campaign adhesion|hypoxic-seeds|adhesion-seeds|invasive-intact|oxygen|shift-seeds");
+  console.log(
+    "chamber campaign adhesion|hypoxic-seeds|adhesion-seeds|invasive-intact|oxygen|oxygen-seeds|motility-seeds|shift-seeds",
+  );
   console.log("chamber ledger");
 }

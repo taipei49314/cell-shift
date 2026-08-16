@@ -22,8 +22,7 @@ function idx(i: number, j: number, k: number, n: number): number {
   return i + n * (j + n * k);
 }
 
-export function createField(chamberRadius: number, supply: number): SubstrateField {
-  const n = FIELD_RES;
+export function createField(chamberRadius: number, supply: number, n = FIELD_RES): SubstrateField {
   const half = chamberRadius;
   const h = (2 * half) / n;
   const count = n * n * n;

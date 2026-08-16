@@ -67,6 +67,8 @@ export type WorldConfig = {
   env: EnvParams;
   rules: RuleParams;
   shift: CloneShift | null;
+  fieldN: number;
+  mutationPool: MutationGene[];
   dt: number;
   maxCells: number;
   chamberRadius: number;
@@ -86,11 +88,18 @@ export type WorldStats = {
 
 export type Morphology = {
   r90: number;
+  r10: number;
+  r50: number;
   necroticFrac: number;
   hypoxicFrac: number;
+  hypoxicShell: number;
   coreO2: number;
   rimO2: number;
   o2Drop: number;
+  asphericity: number;
+  roughness: number;
+  cloneShannon: number;
+  sameCloneNN: number;
   dominantClone: string;
   dominantShare: number;
 };
@@ -122,6 +131,15 @@ export const DEFAULT_CONFIG: WorldConfig = {
   env: DEFAULT_ENV,
   rules: DEFAULT_RULES,
   shift: null,
+  fieldN: 24,
+  mutationPool: [
+    "cycle_rate",
+    "apoptosis_threshold",
+    "hypoxia_tolerance",
+    "adhesion",
+    "motility",
+    "uptake",
+  ],
   dt: 1,
   maxCells: 6000,
   chamberRadius: 18,

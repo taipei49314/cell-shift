@@ -1,0 +1,266 @@
+{
+  "name": "motility-multiseed",
+  "question": "shape",
+  "criterion": "high motility r90 > low motility r90",
+  "hours": 160,
+  "seeds": [
+    4821,
+    7,
+    21,
+    99,
+    2026
+  ],
+  "held": 4,
+  "rows": [
+    {
+      "seed": 4821,
+      "hold": true,
+      "treatmentScore": 3.3546266191605993,
+      "controlScore": 2.194086047369096,
+      "treatment": {
+        "label": "high-motility",
+        "hash": "c1fa68ec",
+        "hours": 160,
+        "morphology": {
+          "r90": 3.3546266191605993,
+          "r10": 1.3105593025481668,
+          "r50": 2.240735310838698,
+          "necroticFrac": 0.62,
+          "hypoxicFrac": 0.5625,
+          "hypoxicShell": 0.625,
+          "coreO2": 0.0863354696140156,
+          "rimO2": 0.2192778715334642,
+          "o2Drop": 0.13294240191944862,
+          "asphericity": 0.2888083326783282,
+          "roughness": 0.6093278175691286,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "low-motility",
+        "hash": "105d7bad",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.194086047369096,
+          "r10": 1.4838043942750165,
+          "r50": 1.9266774027873277,
+          "necroticFrac": 0.5681818181818182,
+          "hypoxicFrac": 0.9166666666666666,
+          "hypoxicShell": 1,
+          "coreO2": 0,
+          "rimO2": 0.2155253712007908,
+          "o2Drop": 0.2155253712007908,
+          "asphericity": 0.17024517899370284,
+          "roughness": 0.3237255229555698,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    },
+    {
+      "seed": 7,
+      "hold": true,
+      "treatmentScore": 2.6739774329062684,
+      "controlScore": 2.3584569673833715,
+      "treatment": {
+        "label": "high-motility",
+        "hash": "7295deca",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.6739774329062684,
+          "r10": 1.6326838909077643,
+          "r50": 1.7628156984163197,
+          "necroticFrac": 0.54,
+          "hypoxicFrac": 0.9285714285714286,
+          "hypoxicShell": 1,
+          "coreO2": 0.08032203510797421,
+          "rimO2": 0.23621914750962106,
+          "o2Drop": 0.15589711240164683,
+          "asphericity": 0.20612443670310907,
+          "roughness": 0.3894174756990198,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "low-motility",
+        "hash": "5099d837",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.3584569673833715,
+          "r10": 1.4487376789452096,
+          "r50": 1.776380307557201,
+          "necroticFrac": 0.5609756097560976,
+          "hypoxicFrac": 1,
+          "hypoxicShell": 1,
+          "coreO2": 0.09089509705075896,
+          "rimO2": 0.20086949132292164,
+          "o2Drop": 0.10997439427216268,
+          "asphericity": 0.18106291557984064,
+          "roughness": 0.3857264732913337,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    },
+    {
+      "seed": 21,
+      "hold": true,
+      "treatmentScore": 2.925145482370911,
+      "controlScore": 2.4152863030101486,
+      "treatment": {
+        "label": "high-motility",
+        "hash": "ff354d48",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.925145482370911,
+          "r10": 1.6852790171157723,
+          "r50": 2.2764098915197892,
+          "necroticFrac": 0.68,
+          "hypoxicFrac": 0.8461538461538461,
+          "hypoxicShell": 1,
+          "coreO2": 0.07639625992369037,
+          "rimO2": 0.22303473640160515,
+          "o2Drop": 0.14663847647791478,
+          "asphericity": 0.21931795292348236,
+          "roughness": 0.42386488902090186,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "low-motility",
+        "hash": "2c00b4f9",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.4152863030101486,
+          "r10": 1.5216810201830473,
+          "r50": 2.092530652791185,
+          "necroticFrac": 0.5813953488372093,
+          "hypoxicFrac": 0.9090909090909091,
+          "hypoxicShell": 1,
+          "coreO2": 0.0780846251919727,
+          "rimO2": 0.20748727960741162,
+          "o2Drop": 0.1294026544154389,
+          "asphericity": 0.16492003662834784,
+          "roughness": 0.36997902969656615,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    },
+    {
+      "seed": 99,
+      "hold": true,
+      "treatmentScore": 2.661974343903234,
+      "controlScore": 2.026006027521905,
+      "treatment": {
+        "label": "high-motility",
+        "hash": "c7f6231f",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.661974343903234,
+          "r10": 1.671286093553932,
+          "r50": 2.064668753722881,
+          "necroticFrac": 0.5,
+          "hypoxicFrac": 1,
+          "hypoxicShell": 1,
+          "coreO2": 0.044991234525462054,
+          "rimO2": 0.1758288848875634,
+          "o2Drop": 0.13083765036210135,
+          "asphericity": 0.185934119445052,
+          "roughness": 0.3721629596537219,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "low-motility",
+        "hash": "53635fce",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.026006027521905,
+          "r10": 1.142224628674539,
+          "r50": 1.6437426907457489,
+          "necroticFrac": 0.5777777777777777,
+          "hypoxicFrac": 0.7857142857142857,
+          "hypoxicShell": 0.75,
+          "coreO2": 0.11656813445934658,
+          "rimO2": 0.22396853829691762,
+          "o2Drop": 0.10740040383757105,
+          "asphericity": 0.2719027544622191,
+          "roughness": 0.4362185436972056,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    },
+    {
+      "seed": 2026,
+      "hold": false,
+      "treatmentScore": 2.363299017379277,
+      "controlScore": 2.597540527060486,
+      "treatment": {
+        "label": "high-motility",
+        "hash": "bc0717c3",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.363299017379277,
+          "r10": 1.0739337426568958,
+          "r50": 2.045774294396575,
+          "necroticFrac": 0.6304347826086957,
+          "hypoxicFrac": 0.8181818181818182,
+          "hypoxicShell": 0.6666666666666666,
+          "coreO2": 0.0667826752640707,
+          "rimO2": 0.24344715833243277,
+          "o2Drop": 0.17666448306836208,
+          "asphericity": 0.3812328963406451,
+          "roughness": 0.5455785599878054,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      },
+      "control": {
+        "label": "low-motility",
+        "hash": "cdde0e52",
+        "hours": 160,
+        "morphology": {
+          "r90": 2.597540527060486,
+          "r10": 1.3046822048112974,
+          "r50": 2.1314008165212455,
+          "necroticFrac": 0.5531914893617021,
+          "hypoxicFrac": 0.9230769230769231,
+          "hypoxicShell": 1,
+          "coreO2": 0.07561935783131378,
+          "rimO2": 0.1985480777661028,
+          "o2Drop": 0.12292871993478903,
+          "asphericity": 0.25379021143308284,
+          "roughness": 0.4977240234677899,
+          "cloneShannon": 0,
+          "sameCloneNN": 1,
+          "dominantClone": "C1",
+          "dominantShare": 1
+        }
+      }
+    }
+  ]
+}

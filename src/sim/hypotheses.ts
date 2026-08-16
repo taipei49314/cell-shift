@@ -63,9 +63,29 @@ export const HYPOTHESES: Hypothesis[] = [
 
 export function runHypothesis(h: Hypothesis): HypothesisRun {
   const { treatment, control } = h.build();
-  const tw = replayTo({ seed: treatment.seed, env: treatment.env, rules: treatment.rules, shift: treatment.shift }, h.hours);
+  const tw = replayTo(
+    {
+      seed: treatment.seed,
+      env: treatment.env,
+      rules: treatment.rules,
+      shift: treatment.shift,
+      fieldN: treatment.fieldN,
+      mutationPool: treatment.mutationPool,
+    },
+    h.hours,
+  );
   const cw = control
-    ? replayTo({ seed: control.seed, env: control.env, rules: control.rules, shift: control.shift }, h.hours)
+    ? replayTo(
+        {
+          seed: control.seed,
+          env: control.env,
+          rules: control.rules,
+          shift: control.shift,
+          fieldN: control.fieldN,
+          mutationPool: control.mutationPool,
+        },
+        h.hours,
+      )
     : undefined;
   const verdict = h.score(measure(tw.cells), cw ? measure(cw.cells) : undefined);
   return {
