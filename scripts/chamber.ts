@@ -24,7 +24,7 @@ import {
   oxygenSweep,
   shiftCycleMultiseed,
 } from "../src/sim/campaign";
-import { PRESETS } from "../src/sim/experiment";
+import { PRESETS, specConfig } from "../src/sim/experiment";
 import { HYPOTHESES, runHypothesis } from "../src/sim/hypotheses";
 import { issueReceipt } from "../src/sim/receipt";
 import { replayTo } from "../src/sim/world";
@@ -44,8 +44,8 @@ if (cmd === "run") {
     console.error("unknown protocol:", a, "wanted", Object.keys(PRESETS).join("|"));
     process.exit(1);
   }
-  const hours = Number(b) || 240;
-  const world = replayTo({ seed: spec.seed, env: spec.env, rules: spec.rules, shift: spec.shift }, hours);
+  const hours = Number(b) || spec.viewHours || 240;
+  const world = replayTo(specConfig(spec), hours);
   const receipt = issueReceipt(world, spec);
   const path = write(`artifacts/receipts/${a}-${hours}h-${receipt.hash}.json`, receipt);
   console.log(path);

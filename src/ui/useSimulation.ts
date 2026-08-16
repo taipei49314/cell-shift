@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { experimentHash, PRESETS, type ExperimentSpec } from "../sim/experiment";
+import { experimentHash, PRESETS, worldFromSpec, type ExperimentSpec } from "../sim/experiment";
 import { issueReceipt, parseReceipt, replayReceipt, type Receipt } from "../sim/receipt";
 import { lineageChain, lineageIds } from "../sim/lineage";
 import { livingShares, measure, radialProfile, type CloneShare } from "../sim/morphology";
@@ -56,15 +56,14 @@ function snapshot(
   };
 }
 
-function bootHypoxic(): World {
-  const p = PRESETS.hypoxic;
-  return replayTo({ seed: p.seed, env: p.env, rules: p.rules, shift: null }, 240);
+function bootView(): World {
+  return worldFromSpec(PRESETS.living);
 }
 
 export function useSimulation() {
-  const [seed, setSeed] = useState(PRESETS.hypoxic.seed);
-  const [env, setEnv] = useState<EnvParams>(PRESETS.hypoxic.env);
-  const [rules, setRules] = useState<RuleParams>(PRESETS.hypoxic.rules);
+  const [seed, setSeed] = useState(PRESETS.living.seed);
+  const [env, setEnv] = useState<EnvParams>(PRESETS.living.env);
+  const [rules, setRules] = useState<RuleParams>(PRESETS.living.rules);
   const [shift, setShift] = useState<CloneShift>(emptyShift("C1"));
   const [running, setRunning] = useState(false);
   const [speed, setSpeed] = useState<1 | 4 | 16>(1);
@@ -72,14 +71,14 @@ export function useSimulation() {
   const [lineageMode, setLineageMode] = useState(false);
   const [lineageSet, setLineageSet] = useState<Set<number>>(new Set());
   const [contrast, setContrast] = useState<Contrast | null>(null);
-  const worldRef = useRef<World>(bootHypoxic());
+  const worldRef = useRef<World>(bootView());
   const [view, setView] = useState<View>(() =>
     snapshot(
       worldRef.current,
       null,
-      PRESETS.hypoxic.seed,
-      PRESETS.hypoxic.env,
-      PRESETS.hypoxic.rules,
+      PRESETS.living.seed,
+      PRESETS.living.env,
+      PRESETS.living.rules,
       null,
     ),
   );
@@ -109,7 +108,9 @@ export function useSimulation() {
 
   const reset = useCallback(
     (nextSeed = seed) => {
-      worldRef.current = createWorld({ seed: nextSeed, env, rules, shift: armed });
+      const hours = worldRef.current.hours;
+      const cfg = { ...worldRef.current.config, seed: nextSeed, env, rules, shift: armed };
+      worldRef.current = hours > 0 ? replayTo(cfg, hours) : createWorld(cfg);
       setLineageMode(false);
       setLineageSet(new Set());
       setSelectedId(null);
@@ -130,7 +131,7 @@ export function useSimulation() {
     envRef.current = spec.env;
     rulesRef.current = spec.rules;
     shiftRef.current = nextShift;
-    worldRef.current = createWorld({ seed: spec.seed, env: spec.env, rules: spec.rules, shift: null });
+    worldRef.current = worldFromSpec(spec);
     setLineageMode(false);
     setLineageSet(new Set());
     setSelectedId(null);

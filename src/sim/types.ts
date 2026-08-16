@@ -74,6 +74,7 @@ export type WorldConfig = {
   chamberRadius: number;
   cellRadius: number;
   founders: number;
+  contactLimit: number;
 };
 
 export type WorldStats = {
@@ -145,6 +146,7 @@ export const DEFAULT_CONFIG: WorldConfig = {
   chamberRadius: 18,
   cellRadius: 0.42,
   founders: 12,
+  contactLimit: 14,
 };
 
 export const SNAPSHOT_EVERY = 6;

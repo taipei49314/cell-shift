@@ -178,7 +178,7 @@ export function step(world: World): void {
     cell.age += dt;
 
     const livingNeighbors = neighbors.filter((i) => !cells[i]!.dead).length;
-    const crowded = livingNeighbors >= 14;
+    const crowded = livingNeighbors >= config.contactLimit;
 
     if (cell.oxygen < traits.oxygenTolerance * 0.35) {
       cell.state = "NECROTIC";

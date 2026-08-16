@@ -29,8 +29,10 @@ npm run dev
 ```
 
 Windows: double-click `開始艙室.bat`. It starts Vite and opens
-`http://127.0.0.1:5173/`. The chamber boots the Hypoxic spheroid protocol
-at 240 h.
+`http://127.0.0.1:5173/`. The chamber boots **Living spheroid** (a packed
+mass you can see). RESET rebuilds the current hour with the armed SHIFT;
+it does not throw you back to 12 founders. Hypoxic / Intact / Invasive
+still open at their view hours.
 
 Then open the URL Vite prints (default `http://127.0.0.1:5173`).
 
