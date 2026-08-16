@@ -50,7 +50,7 @@ function sameCloneNN(living: readonly Cell[]): number {
   return same / living.length;
 }
 
-export function measure(cells: readonly Cell[]): Morphology {
+export function measure(cells: readonly Cell[], opts: { neighbors?: boolean } = {}): Morphology {
   const living = cells.filter((c) => !c.dead);
   const radii = living.map(radiusOf).sort((a, b) => a - b);
   const r10 = percentile(radii, 0.1);
@@ -98,7 +98,7 @@ export function measure(cells: readonly Cell[]): Morphology {
     asphericity: meanR > 0 ? Math.sqrt(varR) / meanR : 0,
     roughness: r90 > 0 ? (r90 - r10) / r90 : 0,
     cloneShannon: shannon,
-    sameCloneNN: sameCloneNN(living),
+    sameCloneNN: opts.neighbors === false ? 0 : sameCloneNN(living),
     dominantClone,
     dominantShare: living.length ? dominantN / living.length : 0,
   };

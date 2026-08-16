@@ -45,7 +45,7 @@ function snapshot(
   const selected = selectedId === null ? null : (world.cells.find((c) => c.id === selectedId) ?? null);
   return {
     stats: stats(world),
-    morphology: measure(world.cells),
+    morphology: measure(world.cells, { neighbors: false }),
     profile: radialProfile(world.cells),
     hash: experimentHash({ seed, env, rules, shift }),
     selected,
@@ -253,23 +253,27 @@ export function useSimulation() {
   useEffect(() => {
     if (!running) return;
     let raf = 0;
-    const loop = () => {
-      applyLiveParams();
+    let lastUi = 0;
+    const loop = (now: number) => {
       const world = worldRef.current;
       const n = speedRef.current;
       for (let i = 0; i < n; i++) {
         if (world.hours >= HORIZON_HOURS) {
           setRunning(false);
-          break;
+          publish();
+          return;
         }
         step(world);
       }
-      publish();
+      if (now - lastUi >= 100) {
+        lastUi = now;
+        publish();
+      }
       if (world.hours < HORIZON_HOURS) raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
-  }, [applyLiveParams, publish, running]);
+  }, [publish, running]);
 
   return {
     worldRef,

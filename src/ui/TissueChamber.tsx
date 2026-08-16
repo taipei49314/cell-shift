@@ -32,6 +32,7 @@ function Tissue({
 }) {
   const mesh = useRef<InstancedMesh>(null);
   const halo = useRef<InstancedMesh>(null);
+  const lastKey = useRef("");
   const max = DEFAULT_CONFIG.maxCells;
 
   useEffect(() => {
@@ -41,7 +42,11 @@ function Tissue({
   useFrame(() => {
     const inst = mesh.current;
     if (!inst) return;
-    const cells = worldRef.current.cells;
+    const world = worldRef.current;
+    const cells = world.cells;
+    const key = `${world.hours}|${cells.length}|${clip}|${colorMode}|${selectedId}|${lineageSet.size}`;
+    if (key === lastKey.current) return;
+    lastKey.current = key;
     const n = Math.min(cells.length, max);
     const r = DEFAULT_CONFIG.cellRadius;
     let haloCount = 0;
