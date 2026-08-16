@@ -191,4 +191,4 @@ v1.0 之後若要做，另開規格，不偷渡進本文件。
 | L2 收據匯出／導入 | **已落地**（UI + `npm run chamber` + round-trip 測試） |
 | L3 剖切、著色模式、培養皿、協議主圖 | **已落地** |
 
-L1、L2、L3 已落地。v1.0 tag 仍要 `npm test` + `npm run figure` 在乾淨 checkout 全綠，且 CLAIMS Not-claimed 未改。
+L1、L2、L3 已落地。下一個長任務不在本檔加功能，見 [T2.md](T2.md)（Failure Atlas）。
