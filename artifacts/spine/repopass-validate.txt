@@ -1,0 +1,2 @@
+VALID C:\Users\G713RW\cell-shift\repo-passport.yml
+Manifest digest: sha256:2e9f4ea8154f4323a93e1f92e602bec032f99ab049d5c6fd6f14f4c24c9ca085

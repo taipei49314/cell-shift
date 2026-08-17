@@ -1,0 +1,8 @@
+{
+  "must": [
+    { "type": "command", "id": "npm-test" },
+    { "type": "command", "id": "tsc-b" },
+    { "type": "command", "id": "vite-build" },
+    { "type": "command", "id": "npm-audit-pack" }
+  ]
+}

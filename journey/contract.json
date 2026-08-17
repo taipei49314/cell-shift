@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "goal": "Public reproducibility journey holds on a clean checkout: npm test, npx tsc -b, npx vite build, npm run audit. Chamber stays maintenance-only. CLAIMS Not-claimed rows stay Not-claimed.",
+  "allowed_paths": [
+    "src/**",
+    "scripts/**",
+    "docs/**",
+    "artifacts/**",
+    "journey/**",
+    ".github/workflows/**",
+    "README.md",
+    "JOURNEY.md",
+    "repo-passport.yml",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "tsconfig.app.json",
+    "tsconfig.node.json",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "index.html",
+    "開始艙室.bat"
+  ],
+  "forbidden_paths": [
+    ".walkaround/**",
+    "CLAIMS.md"
+  ],
+  "required_organs": [],
+  "done_predicates": [
+    "done",
+    "做完",
+    "finished"
+  ],
+  "require_observe": true,
+  "require_work": true
+}

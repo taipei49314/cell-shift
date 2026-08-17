@@ -1,0 +1,17 @@
+{
+  "command": "inspect",
+  "error": {
+    "code": "SOURCE_PATH_TRAVERSAL",
+    "details": {
+      "path": "開始艙室.bat"
+    },
+    "evidenceRefs": [],
+    "message": "Source contains a path that is not portable in the v0.1 snapshot profile.",
+    "retryable": false,
+    "schemaVersion": "1",
+    "severity": "high",
+    "suggestion": "Use printable ASCII path segments without Windows-reserved characters or trailing dots/spaces."
+  },
+  "schemaVersion": "1",
+  "status": "error"
+}

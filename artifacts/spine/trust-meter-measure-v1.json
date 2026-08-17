@@ -1,0 +1,88 @@
+{
+  "authority_effect": "none",
+  "configuration": {
+    "byte_length": 0,
+    "mode": "none",
+    "phase_gate": "",
+    "sha256": null,
+    "strict": false,
+    "threshold": 70.0
+  },
+  "profile": {
+    "analysis": "static_source",
+    "collector_plugin_loading": "disabled",
+    "collector_target_module_loading": "disabled",
+    "collector_target_test_execution": "disabled",
+    "name": "builtin-static-v1"
+  },
+  "result": {
+    "advisory_gate_met": true,
+    "all_metrics_passed": true,
+    "metrics": [
+      {
+        "details": "No Python files to scan",
+        "evidence": [],
+        "name": "determinism",
+        "passed": true,
+        "score": 100.0,
+        "weight": 1.0
+      },
+      {
+        "details": "No remote dependencies or hardcoded URLs detected",
+        "evidence": [],
+        "name": "locality",
+        "passed": true,
+        "score": 100.0,
+        "weight": 1.0
+      },
+      {
+        "details": "No source modules found to test",
+        "evidence": [],
+        "name": "evidence",
+        "passed": true,
+        "score": 100.0,
+        "weight": 1.0
+      },
+      {
+        "details": "No Python files to scan",
+        "evidence": [],
+        "name": "reproducibility",
+        "passed": true,
+        "score": 100.0,
+        "weight": 1.0
+      },
+      {
+        "details": "No local modules to analyze",
+        "evidence": [],
+        "name": "architecture",
+        "passed": true,
+        "score": 100.0,
+        "weight": 1.0
+      },
+      {
+        "details": "No files to analyze",
+        "evidence": [],
+        "name": "complexity",
+        "passed": true,
+        "score": 100.0,
+        "weight": 0.5
+      },
+      {
+        "details": "No Python files to scan",
+        "evidence": [],
+        "name": "transparency",
+        "passed": true,
+        "score": 100.0,
+        "weight": 0.5
+      }
+    ],
+    "overall_score": 100.0,
+    "scope": "advisory_structural_measure",
+    "threshold_met": true
+  },
+  "schema_version": "trust-meter.measure/v1",
+  "tool": {
+    "name": "trust-meter",
+    "version": "0.2.1"
+  }
+}

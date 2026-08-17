@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "verdict": "ADMITTED",
+  "code": "ADMITTED",
+  "reason": "contract held and required organs passed",
+  "contract": {
+    "schema_version": 1,
+    "goal": "Public reproducibility journey holds on a clean checkout: npm test, npx tsc -b, npx vite build, npm run audit. Chamber stays maintenance-only. CLAIMS Not-claimed rows stay Not-claimed.",
+    "allowed_paths": [
+      "src/**",
+      "scripts/**",
+      "docs/**",
+      "artifacts/**",
+      "journey/**",
+      ".github/workflows/**",
+      "README.md",
+      "JOURNEY.md",
+      "repo-passport.yml",
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json",
+      "tsconfig.app.json",
+      "tsconfig.node.json",
+      "vite.config.ts",
+      "vitest.config.ts",
+      "index.html",
+      "開始艙室.bat"
+    ],
+    "forbidden_paths": [
+      ".walkaround/**",
+      "CLAIMS.md"
+    ],
+    "required_organs": [],
+    "done_predicates": [
+      "done",
+      "做完",
+      "finished"
+    ],
+    "require_observe": true,
+    "require_work": true
+  },
+  "contract_digest": "123720886afdffcc44cf0b8d4ef56f124b4ceb848b2fadfe89214ac4573df2d4",
+  "events": [
+    {
+      "seq": 0,
+      "kind": "observe",
+      "digest": "644cdada64017b134b2c6aae4dfb2723032767d534f738d6cdf1f022eeba6489",
+      "paths": [
+        "JOURNEY.md",
+        "journey/contract.json",
+        "journey/must.json",
+        "repo-passport.yml",
+        "README.md",
+        "artifacts/spine/README.md"
+      ]
+    },
+    {
+      "seq": 1,
+      "kind": "write",
+      "digest": "56944509a954b0368757a097739a3395e7feaf1de8299a8e1c5d7f54db10f729",
+      "path": "JOURNEY.md"
+    },
+    {
+      "seq": 2,
+      "kind": "write",
+      "digest": "aedcce83b07a315de5f48df35304ae38227d8486eebfcb562d297b06bd8ae101",
+      "path": "journey/contract.json"
+    },
+    {
+      "seq": 3,
+      "kind": "write",
+      "digest": "07b9f1bd72f579a85fbb762fca9d2a6c66b4f60341e4211e0917bf9865409ea6",
+      "path": "journey/must.json"
+    },
+    {
+      "seq": 4,
+      "kind": "write",
+      "digest": "5b0490dfe014e6d3032d5b9e8763c4dc8fa6ef72b6f6f52b5456e88c186b9255",
+      "path": "repo-passport.yml"
+    },
+    {
+      "seq": 5,
+      "kind": "write",
+      "digest": "a2500d6227634c0822f364a0da837b6b15985e9326ed1ce849837592f88d77a0",
+      "path": "README.md"
+    },
+    {
+      "seq": 6,
+      "kind": "write",
+      "digest": "9d33584224370f29079d913e5de0ea3e6c03a55c5016de18de81325e2f93e850",
+      "path": "artifacts/spine/README.md"
+    },
+    {
+      "seq": 7,
+      "kind": "close",
+      "digest": "ad68ccaa5682996a24e541f6436dbdc42866b4f35b636a04ff1be00115d03b89",
+      "claim": "finished frozen public journey; chamber remains maintenance-only"
+    }
+  ],
+  "trace_digest": "7979450117ddb5ba15442cf385e39aa27a389b7748ee2fba0338938a8ed1a425",
+  "organ_results": [],
+  "declared_organs": [],
+  "actual_organs": [],
+  "missing_organs": [],
+  "path_violations": [],
+  "signature": {
+    "kind": "unsigned"
+  }
+}
